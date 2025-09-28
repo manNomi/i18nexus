@@ -1,4 +1,4 @@
-# React i18n Auto
+# i18nexus
 
 🌍 **완전한 React 국제화 자동화 도구** - 쿠키 기반 언어 관리, Google Sheets 연동, 자동 코드 변환 기능을 제공합니다.
 
@@ -28,7 +28,7 @@
 ## 🚀 설치
 
 ```bash
-npm install react-i18n-auto react-i18next i18next
+npm install i18nexus react-i18next i18next
 ```
 
 ## 📖 사용 가이드
@@ -70,7 +70,7 @@ export default i18n;
 
 ```typescript
 import React from "react";
-import { I18nProvider } from "react-i18n-auto";
+import { I18nProvider } from "i18nexus";
 import "./i18n"; // i18next 설정 import
 
 function App() {
@@ -101,7 +101,7 @@ function App() {
 
 ```typescript
 import React from "react";
-import { useTranslation, useLanguageSwitcher } from "react-i18n-auto";
+import { useTranslation, useLanguageSwitcher } from "i18nexus";
 
 function MyComponent() {
   const { t, currentLanguage, isLoading } = useTranslation();
@@ -244,7 +244,7 @@ npx i18n-sheets sync \
 #### 프로그래매틱 사용
 
 ````typescript
-import { GoogleSheetsManager } from "react-i18n-auto";
+import { GoogleSheetsManager } from "i18nexus";
 
 const sheetsManager = new GoogleSheetsManager({
   credentialsPath: "./service-account-key.json",
@@ -266,7 +266,7 @@ console.log(`총 ${status.totalRows}개의 번역이 있습니다.`);
 
 ### LanguageManager 직접 사용
 ```typescript
-import { LanguageManager } from "react-i18n-auto";
+import { LanguageManager } from "i18nexus";
 
 const languageManager = new LanguageManager({
   defaultLanguage: "ko",
@@ -392,7 +392,7 @@ i18n-sheets <command> [options]
 
 ```typescript
 // _app.tsx
-import { I18nProvider } from "react-i18n-auto";
+import { I18nProvider } from "i18nexus";
 import "../i18n/config";
 
 export default function App({ Component, pageProps }) {
@@ -451,7 +451,7 @@ import React from "react";
 import {
   useTranslation,
   useLanguageSwitcher,
-} from "@yourname/react-i18n-toolkit";
+} from "i18nexus";
 
 function MyComponent() {
   const { t, currentLanguage } = useTranslation("common");
@@ -532,12 +532,7 @@ const {
 Direct access to cookie management functions:
 
 ```typescript
-import {
-  setCookie,
-  getCookie,
-  deleteCookie,
-  getAllCookies,
-} from "@yourname/react-i18n-toolkit";
+import { setCookie, getCookie, deleteCookie, getAllCookies } from "i18nexus";
 
 // Set a cookie
 setCookie("language", "ko", { expires: 30, path: "/" });
@@ -559,7 +554,7 @@ const allCookies = getAllCookies();
 Automatically wrap hardcoded strings in your code with translation functions:
 
 ```typescript
-import { TranslationWrapper } from "@yourname/react-i18n-toolkit";
+import { TranslationWrapper } from "i18nexus";
 
 const wrapper = new TranslationWrapper({
   sourcePattern: "src/**/*.{js,jsx,ts,tsx}",
@@ -592,7 +587,7 @@ await wrapper.generateTranslationFiles("./locales");
 
 ```tsx
 // pages/_app.tsx
-import { I18nProvider } from "@yourname/react-i18n-toolkit";
+import { I18nProvider } from "i18nexus";
 import "../i18n";
 
 function MyApp({ Component, pageProps }) {
@@ -617,7 +612,7 @@ export default MyApp;
 
 ```tsx
 import React from "react";
-import { useLanguageSwitcher } from "@yourname/react-i18n-toolkit";
+import { useLanguageSwitcher } from "i18nexus";
 
 const LanguageSwitcher: React.FC = () => {
   const { currentLanguage, availableLanguages, changeLanguage } =

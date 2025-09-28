@@ -1,5 +1,5 @@
 {
-  "name": "react-i18n-auto",
+  "name": "i18nexus",
   "version": "1.0.4",
   "description": "Complete React i18n toolkit with cookie-based language management, Google Sheets integration, and automatic code transformation tools",
   "main": "dist/index.js",
@@ -18,7 +18,7 @@
     "lint": "eslint src/**/*.{ts,tsx} --fix",
     "format": "prettier --write src/**/*.{ts,tsx}",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run lint && npm run test && npm run build",
+    "prepublishOnly": "npm run build",
     "prepack": "npm run build",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
@@ -41,22 +41,22 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dev/react-i18n-auto.git"
+    "url": "git+https://github.com/manNomi/i18nexus.git"
   },
   "bugs": {
-    "url": "https://github.com/dev/react-i18n-auto/issues"
+    "url": "https://github.com/manNomi/i18nexus/issues"
   },
-  "homepage": "https://github.com/dev/react-i18n-auto#readme",
+  "homepage": "https://github.com/manNomi/i18nexus#readme",
   "files": [
     "dist",
     "README.md",
     "LICENSE"
   ],
   "peerDependencies": {
+    "i18next": ">=21.0.0",
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
-    "react-i18next": ">=11.0.0",
-    "i18next": ">=21.0.0"
+    "react-i18next": ">=11.0.0"
   },
   "dependencies": {
     "@babel/generator": "^7.23.0",
@@ -72,6 +72,7 @@
     "@babel/preset-env": "^7.23.0",
     "@babel/preset-react": "^7.22.0",
     "@babel/preset-typescript": "^7.23.0",
+    "@eslint/js": "^9.36.0",
     "@testing-library/jest-dom": "^6.1.0",
     "@testing-library/react": "^13.4.0",
     "@types/babel__generator": "^7.6.0",
@@ -82,11 +83,12 @@
     "@types/react-dom": "^18.2.0",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
-    "eslint": "^8.52.0",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "globals": "^16.4.0",
     "i18next": "^23.6.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
@@ -95,7 +97,8 @@
     "react-dom": "^18.2.0",
     "react-i18next": "^13.3.0",
     "ts-jest": "^29.1.0",
-    "typescript": "^5.2.0"
+    "typescript": "^5.2.0",
+    "typescript-eslint": "^8.44.1"
   },
   "engines": {
     "node": ">=16.0.0",

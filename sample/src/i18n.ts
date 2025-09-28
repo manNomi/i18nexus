@@ -5,9 +5,9 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {
       common: {
-        welcome: "Welcome to React i18n Toolkit",
+        welcome: "Welcome to i18nexus",
         description:
-          "This is a sample application demonstrating the React i18n Toolkit features.",
+          "This is a sample application demonstrating the i18nexus features.",
         currentLanguage: "Current Language",
         switchLanguage: "Switch Language",
         cookieDemo: "Cookie Demo",
@@ -26,9 +26,8 @@ i18n.use(initReactI18next).init({
     },
     ko: {
       common: {
-        welcome: "React i18n Toolkit에 오신 것을 환영합니다",
-        description:
-          "이것은 React i18n Toolkit 기능을 보여주는 샘플 애플리케이션입니다.",
+        welcome: "i18nexus에 오신 것을 환영합니다",
+        description: "이것은 i18nexus 기능을 보여주는 샘플 애플리케이션입니다.",
         currentLanguage: "현재 언어",
         switchLanguage: "언어 변경",
         cookieDemo: "쿠키 데모",
@@ -47,9 +46,9 @@ i18n.use(initReactI18next).init({
     },
     ja: {
       common: {
-        welcome: "React i18n Toolkitへようこそ",
+        welcome: "i18nexusへようこそ",
         description:
-          "これはReact i18n Toolkitの機能を実演するサンプルアプリケーションです。",
+          "これはi18nexusの機能を実演するサンプルアプリケーションです。",
         currentLanguage: "現在の言語",
         switchLanguage: "言語を切り替える",
         cookieDemo: "クッキーデモ",

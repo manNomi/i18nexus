@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  I18nProvider,
-  useTranslation,
-  useLanguageSwitcher,
-} from "@yourname/react-i18n-toolkit";
+import { I18nProvider, useTranslation, useLanguageSwitcher } from "i18nexus";
 import "./i18n";
 import "./App.css";
 
