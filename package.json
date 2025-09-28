@@ -1,6 +1,6 @@
 {
   "name": "react-i18n-auto",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Complete React i18n toolkit with cookie-based language management, Google Sheets integration, and automatic code transformation tools",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
