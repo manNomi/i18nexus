@@ -38,7 +38,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
   initialLanguage,
 }) => {
   const [languageManager] = React.useState(
-    () => new LanguageManager(languageManagerOptions)
+    () => new LanguageManager(languageManagerOptions),
   );
 
   // Use initialLanguage (from server) if provided, otherwise use default

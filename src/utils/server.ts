@@ -28,7 +28,7 @@ export function getServerLanguage(
   options?: {
     cookieName?: string;
     defaultLanguage?: string;
-  }
+  },
 ): string {
   const cookieName = options?.cookieName || "i18n-language";
   const defaultLanguage = options?.defaultLanguage || "en";
@@ -53,7 +53,7 @@ export function getServerLanguage(
  * Parse cookies from cookie header string
  */
 export function parseCookies(
-  cookieHeader: string | null
+  cookieHeader: string | null,
 ): Record<string, string> {
   if (!cookieHeader) {
     return {};
