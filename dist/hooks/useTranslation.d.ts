@@ -1,5 +1,5 @@
 export declare const useTranslation: () => {
-    t: (key: string, options?: any) => string;
+    t: (key: string) => string;
     currentLanguage: string;
     isReady: boolean;
 };

@@ -1,9 +1,23 @@
 {
   "name": "i18nexus",
-  "version": "2.0.2",
+  "version": "2.0.5",
   "description": "React i18n toolkit with cookie-based language management and SSR support",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/utils/server.d.ts",
+      "import": "./dist/utils/server.js",
+      "default": "./dist/utils/server.js"
+    }
+  },
   "scripts": {
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "clean": "rm -rf dist",
@@ -48,10 +62,8 @@
     "LICENSE"
   ],
   "peerDependencies": {
-    "i18next": ">=21.0.0",
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0",
-    "react-i18next": ">=11.0.0"
+    "react-dom": ">=16.8.0"
   },
   "dependencies": {
     "@babel/generator": "^7.23.0",

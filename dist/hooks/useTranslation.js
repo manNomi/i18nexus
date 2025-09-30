@@ -1,11 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useLanguageSwitcher = exports.useTranslation = void 0;
-const I18nProvider_1 = require("../components/I18nProvider");
-const useTranslation = () => {
-    const { currentLanguage, isLoading, translations } = (0, I18nProvider_1.useI18nContext)();
+"use client";
+import { useI18nContext } from "../components/I18nProvider";
+export const useTranslation = () => {
+    const { currentLanguage, isLoading, translations } = useI18nContext();
     // i18nexus 자체 번역 시스템 사용
-    const translate = (key, options) => {
+    const translate = (key) => {
         const currentTranslations = translations[currentLanguage] || {};
         return currentTranslations[key] || key;
     };
@@ -15,9 +13,8 @@ const useTranslation = () => {
         isReady: !isLoading,
     };
 };
-exports.useTranslation = useTranslation;
-const useLanguageSwitcher = () => {
-    const { currentLanguage, changeLanguage, availableLanguages, languageManager, isLoading, } = (0, I18nProvider_1.useI18nContext)();
+export const useLanguageSwitcher = () => {
+    const { currentLanguage, changeLanguage, availableLanguages, languageManager, isLoading, } = useI18nContext();
     const switchToNextLanguage = async () => {
         const languageCodes = availableLanguages.map((lang) => lang.code);
         const currentIndex = languageCodes.indexOf(currentLanguage);
@@ -53,5 +50,4 @@ const useLanguageSwitcher = () => {
         isLoading,
     };
 };
-exports.useLanguageSwitcher = useLanguageSwitcher;
 //# sourceMappingURL=useTranslation.js.map

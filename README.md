@@ -33,24 +33,28 @@ i18nexus is a comprehensive React internationalization toolkit that **automates 
 ## 🌟 Features
 
 ### 🔧 Smart Code Transformation
+
 - **Automatic Detection**: Finds hardcoded Korean and English strings in JSX
-- **Intelligent Wrapping**: Wraps strings with `t()` functions automatically  
+- **Intelligent Wrapping**: Wraps strings with `t()` functions automatically
 - **Hook Injection**: Adds `useTranslation` hooks where needed
 - **TypeScript Support**: Full TypeScript compatibility
 
 ### 🔍 Translation Key Extraction
+
 - **Comprehensive Scanning**: Extracts all `t()` wrapped keys from your codebase
 - **Multiple Formats**: Generate JSON, CSV files for translators
 - **Smart Organization**: Maintains consistent key structures
 - **Incremental Updates**: Only processes changed files
 
 ### 📊 Google Sheets Integration
+
 - **Direct Sync**: Upload/download translations to/from Google Sheets
 - **Real-time Collaboration**: Translators work directly in familiar interface
 - **Version Control**: Track translation changes and updates
 - **Batch Operations**: Handle multiple languages simultaneously
 
 ### 🍪 Advanced Language Management
+
 - **Cookie Persistence**: Language settings survive browser refreshes
 - **SSR Compatible**: Works seamlessly with Next.js and other SSR frameworks
 - **Auto-detection**: Detect user's preferred language automatically
@@ -70,19 +74,18 @@ npm install i18nexus react-i18next i18next
 
 ```tsx
 // App.tsx
-import { I18nProvider } from 'i18nexus';
+import { I18nProvider } from "i18nexus";
 
 function App() {
   return (
     <I18nProvider
       languageManagerOptions={{
-        defaultLanguage: 'en',
+        defaultLanguage: "en",
         availableLanguages: [
-          { code: 'en', name: 'English', flag: '🇺🇸' },
-          { code: 'ko', name: '한국어', flag: '🇰🇷' }
-        ]
-      }}
-    >
+          { code: "en", name: "English", flag: "🇺🇸" },
+          { code: "ko", name: "한국어", flag: "🇰🇷" },
+        ],
+      }}>
       {/* Your app */}
     </I18nProvider>
   );
@@ -92,7 +95,7 @@ function App() {
 ### Using Translations
 
 ```tsx
-import { useTranslation, useLanguageSwitcher } from 'i18nexus';
+import { useTranslation, useLanguageSwitcher } from "i18nexus";
 
 function MyComponent() {
   const { t } = useTranslation();
@@ -100,10 +103,88 @@ function MyComponent() {
 
   return (
     <div>
-      <h1>{t('welcome')}</h1>
-      <button onClick={() => changeLanguage('ko')}>
-        Switch to Korean
-      </button>
+      <h1>{t("welcome")}</h1>
+      <button onClick={() => changeLanguage("ko")}>Switch to Korean</button>
+    </div>
+  );
+}
+```
+
+### Next.js App Router Setup
+
+For Next.js App Router (Next.js 13+), use the server-side utilities to prevent hydration mismatches:
+
+```tsx
+// app/layout.tsx
+import { headers } from "next/headers";
+import { I18nProvider } from "i18nexus";
+import { getServerLanguage } from "i18nexus/server";
+
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  // Read language from cookies on the server
+  const headersList = await headers();
+  const language = getServerLanguage(headersList, {
+    cookieName: "i18n-language",
+    defaultLanguage: "en",
+  });
+
+  return (
+    <html lang={language}>
+      <body>
+        <I18nProvider
+          initialLanguage={language}
+          languageManagerOptions={{
+            defaultLanguage: "en",
+            availableLanguages: [
+              { code: "en", name: "English", flag: "🇺🇸" },
+              { code: "ko", name: "한국어", flag: "🇰🇷" },
+            ],
+          }}>
+          {children}
+        </I18nProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+**Why this approach?**
+
+- ✅ **No hydration mismatch**: Server and client render with the same language
+- ✅ **No import errors**: Proper package exports for server/client separation
+- ✅ **SEO friendly**: Correct `lang` attribute on first render
+- ✅ **Fast**: No layout shift from language detection
+
+**Using in Client Components:**
+
+```tsx
+"use client";
+
+import { useTranslation, useLanguageSwitcher } from "i18nexus";
+
+export default function LanguageSwitcher() {
+  const { t } = useTranslation();
+  const { currentLanguage, changeLanguage, availableLanguages } =
+    useLanguageSwitcher();
+
+  return (
+    <div>
+      <p>
+        {t("currentLanguage")}: {currentLanguage}
+      </p>
+      <select
+        value={currentLanguage}
+        onChange={(e) => changeLanguage(e.target.value)}>
+        {availableLanguages.map((lang) => (
+          <option key={lang.code} value={lang.code}>
+            {lang.flag} {lang.name}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
@@ -116,6 +197,7 @@ function MyComponent() {
 i18nexus provides powerful CLI tools that automate your entire i18n workflow:
 
 ### 1. 🔧 i18n-wrapper
+
 **Automatically wrap hardcoded strings with t() functions**
 
 ```bash
@@ -133,6 +215,7 @@ npx i18n-wrapper --pattern "src/**/*.{js,jsx,ts,tsx}"
 ```
 
 **What it does:**
+
 - ✅ Detects hardcoded Korean and English strings in JSX
 - ✅ Wraps them with `t('key')` functions
 - ✅ Automatically adds `useTranslation` imports and hooks
@@ -140,6 +223,7 @@ npx i18n-wrapper --pattern "src/**/*.{js,jsx,ts,tsx}"
 - ✅ Handles complex JSX expressions safely
 
 **Example transformation:**
+
 ```tsx
 // Before
 function Welcome() {
@@ -147,15 +231,16 @@ function Welcome() {
 }
 
 // After
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function Welcome() {
   const { t } = useTranslation();
-  return <h1>{t('welcomeToOurApp')}</h1>;
+  return <h1>{t("welcomeToOurApp")}</h1>;
 }
 ```
 
 ### 2. 🔍 i18n-extractor
+
 **Extract translation keys and generate translation files**
 
 ```bash
@@ -173,6 +258,7 @@ npx i18n-extractor --pattern "src/**/*.tsx"
 ```
 
 **Generated output:**
+
 ```json
 {
   "welcomeToOurApp": "Welcome to our app!",
@@ -182,6 +268,7 @@ npx i18n-extractor --pattern "src/**/*.tsx"
 ```
 
 ### 3. 📤 i18n-upload
+
 **Upload translations to Google Sheets**
 
 ```bash
@@ -202,6 +289,7 @@ npx i18n-upload \
 ```
 
 ### 4. 📥 i18n-download
+
 **Download translations from Google Sheets**
 
 ```bash
@@ -240,6 +328,7 @@ npx i18n-download --spreadsheet-id "your-sheet-id" --locales-dir "./public/local
 ## 📊 Google Sheets Setup
 
 ### 1. Create Google Service Account
+
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Create a new project or select existing one
 3. Enable Google Sheets API
@@ -247,11 +336,13 @@ npx i18n-download --spreadsheet-id "your-sheet-id" --locales-dir "./public/local
 5. Download JSON credentials file
 
 ### 2. Setup Google Sheet
+
 1. Create a new Google Sheet
 2. Share it with your service account email
 3. Set up columns: `key`, `en`, `ko`, etc.
 
 ### 3. Configure i18nexus
+
 ```bash
 # Set up credentials
 export GOOGLE_APPLICATION_CREDENTIALS="./path/to/credentials.json"
@@ -283,6 +374,8 @@ interface I18nProviderProps {
   children: ReactNode;
   languageManagerOptions?: LanguageManagerOptions;
   onLanguageChange?: (language: string) => void;
+  initialLanguage?: string; // For SSR/Next.js - prevents hydration mismatch
+  translations?: Record<string, Record<string, string>>;
 }
 
 interface LanguageManagerOptions {
@@ -290,39 +383,58 @@ interface LanguageManagerOptions {
   availableLanguages: LanguageConfig[];
   enableAutoDetection?: boolean;
   cookieOptions?: CookieOptions;
+  cookieName?: string;
+  enableLocalStorage?: boolean;
+  storageKey?: string;
 }
+```
+
+### Server-side Utilities
+
+For Next.js App Router and SSR:
+
+```tsx
+import { getServerLanguage } from 'i18nexus/server';
+
+// Read language from headers in Server Components
+const language = getServerLanguage(headers, {
+  cookieName?: string;      // default: 'i18n-language'
+  defaultLanguage?: string; // default: 'en'
+});
 ```
 
 ### Hooks
 
 #### useTranslation
+
 ```tsx
 const { t } = useTranslation();
 // Usage: t('key', { variable: 'value' })
 ```
 
 #### useLanguageSwitcher
+
 ```tsx
-const { 
-  currentLanguage, 
-  changeLanguage, 
-  availableLanguages 
-} = useLanguageSwitcher();
+const { currentLanguage, changeLanguage, availableLanguages } =
+  useLanguageSwitcher();
 ```
 
 ### CLI Options
 
 #### i18n-wrapper
+
 - `--pattern <glob>`: File pattern to process (default: `**/*.{js,jsx,ts,tsx}`)
 - `--dry-run`: Preview changes without writing files
 - `--verbose`: Show detailed processing information
 
 #### i18n-extractor
+
 - `--pattern <glob>`: File pattern to scan
 - `--output-format <json|csv>`: Output format (default: json)
 - `--output-dir <path>`: Output directory (default: ./locales)
 
 #### i18n-upload/download
+
 - `--spreadsheet-id <id>`: Google Sheets ID (required)
 - `--credentials <path>`: Google credentials JSON file
 - `--sheet-name <name>`: Sheet name (default: Translations)

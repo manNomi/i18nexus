@@ -1,15 +1,21 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useI18nContext = exports.I18nProvider = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const react_1 = require("react");
-const languageManager_1 = require("../utils/languageManager");
-const I18nContext = (0, react_1.createContext)(undefined);
-const I18nProvider = ({ children, languageManagerOptions, translations = {}, onLanguageChange, }) => {
-    const [languageManager] = (0, react_1.useState)(() => new languageManager_1.LanguageManager(languageManagerOptions));
-    const [currentLanguage, setCurrentLanguage] = (0, react_1.useState)(languageManagerOptions?.defaultLanguage || "en");
-    const [isLoading, setIsLoading] = (0, react_1.useState)(false);
-    const [isHydrated, setIsHydrated] = (0, react_1.useState)(false);
+"use client";
+import { jsx as _jsx } from "react/jsx-runtime";
+import React from "react";
+import { LanguageManager, } from "../utils/languageManager";
+const I18nContext = React.createContext(null);
+export const I18nProvider = ({ children, languageManagerOptions, translations = {}, onLanguageChange, initialLanguage, }) => {
+    const [languageManager] = React.useState(() => new LanguageManager(languageManagerOptions));
+    // Use initialLanguage (from server) if provided, otherwise use default
+    // This prevents hydration mismatch
+    const getInitialLanguage = () => {
+        if (initialLanguage) {
+            return initialLanguage;
+        }
+        return languageManagerOptions?.defaultLanguage || "en";
+    };
+    const [currentLanguage, setCurrentLanguage] = React.useState(getInitialLanguage());
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [isHydrated, setIsHydrated] = React.useState(false);
     const changeLanguage = async (lang) => {
         if (lang === currentLanguage) {
             return;
@@ -35,16 +41,19 @@ const I18nProvider = ({ children, languageManagerOptions, translations = {}, onL
         }
     };
     // 클라이언트에서 hydration 완료 후 실제 언어 설정 로드
-    (0, react_1.useEffect)(() => {
+    React.useEffect(() => {
         setIsHydrated(true);
-        // 쿠키에서 실제 언어 설정 읽기
-        const actualLanguage = languageManager.getCurrentLanguage();
-        if (actualLanguage !== currentLanguage) {
-            setCurrentLanguage(actualLanguage);
-            onLanguageChange?.(actualLanguage);
+        // initialLanguage가 제공되지 않은 경우에만 쿠키에서 읽기
+        // initialLanguage가 제공된 경우 이미 서버-클라이언트 동기화되어 있음
+        if (!initialLanguage) {
+            const actualLanguage = languageManager.getCurrentLanguage();
+            if (actualLanguage !== currentLanguage) {
+                setCurrentLanguage(actualLanguage);
+                onLanguageChange?.(actualLanguage);
+            }
         }
     }, []);
-    (0, react_1.useEffect)(() => {
+    React.useEffect(() => {
         if (!isHydrated)
             return;
         // 언어 변경 리스너 등록
@@ -64,15 +73,13 @@ const I18nProvider = ({ children, languageManagerOptions, translations = {}, onL
         isLoading,
         translations,
     };
-    return ((0, jsx_runtime_1.jsx)(I18nContext.Provider, { value: contextValue, children: children }));
+    return (_jsx(I18nContext.Provider, { value: contextValue, children: children }));
 };
-exports.I18nProvider = I18nProvider;
-const useI18nContext = () => {
-    const context = (0, react_1.useContext)(I18nContext);
+export const useI18nContext = () => {
+    const context = React.useContext(I18nContext);
     if (!context) {
         throw new Error("useI18nContext must be used within an I18nProvider");
     }
     return context;
 };
-exports.useI18nContext = useI18nContext;
 //# sourceMappingURL=I18nProvider.js.map

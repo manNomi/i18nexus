@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllCookies = exports.deleteCookie = exports.getCookie = exports.setCookie = void 0;
-const setCookie = (name, value, options = {}) => {
+export const setCookie = (name, value, options = {}) => {
     if (typeof document === "undefined") {
         return; // SSR support
     }
@@ -25,8 +22,7 @@ const setCookie = (name, value, options = {}) => {
     }
     document.cookie = cookieString;
 };
-exports.setCookie = setCookie;
-const getCookie = (name) => {
+export const getCookie = (name) => {
     if (typeof document === "undefined") {
         return null; // SSR support
     }
@@ -40,12 +36,10 @@ const getCookie = (name) => {
     }
     return null;
 };
-exports.getCookie = getCookie;
-const deleteCookie = (name, options = {}) => {
-    (0, exports.setCookie)(name, "", { ...options, expires: -1 });
+export const deleteCookie = (name, options = {}) => {
+    setCookie(name, "", { ...options, expires: -1 });
 };
-exports.deleteCookie = deleteCookie;
-const getAllCookies = () => {
+export const getAllCookies = () => {
     if (typeof document === "undefined") {
         return {}; // SSR support
     }
@@ -60,5 +54,4 @@ const getAllCookies = () => {
     }
     return cookies;
 };
-exports.getAllCookies = getAllCookies;
 //# sourceMappingURL=cookie.js.map

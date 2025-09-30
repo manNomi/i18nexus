@@ -13,6 +13,11 @@ export interface I18nProviderProps {
     languageManagerOptions?: LanguageManagerOptions;
     translations?: Record<string, Record<string, string>>;
     onLanguageChange?: (language: string) => void;
+    /**
+     * Initial language from server-side (for SSR/Next.js App Router)
+     * This prevents hydration mismatch by ensuring server and client render with the same language
+     */
+    initialLanguage?: string;
 }
 export declare const I18nProvider: React.FC<I18nProviderProps>;
 export declare const useI18nContext: () => I18nContextType;

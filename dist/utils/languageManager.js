@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.defaultLanguageManager = exports.LanguageManager = void 0;
-const cookie_1 = require("../utils/cookie");
-class LanguageManager {
+import { getCookie, setCookie } from "../utils/cookie";
+export class LanguageManager {
     constructor(options = {}) {
         this.listeners = [];
         this.options = {
@@ -28,7 +25,7 @@ class LanguageManager {
      */
     getCurrentLanguage() {
         // 1. 쿠키에서 확인
-        const cookieLanguage = (0, cookie_1.getCookie)(this.options.cookieName);
+        const cookieLanguage = getCookie(this.options.cookieName);
         if (cookieLanguage && this.isValidLanguage(cookieLanguage)) {
             return cookieLanguage;
         }
@@ -63,7 +60,7 @@ class LanguageManager {
         }
         try {
             // 쿠키에 저장
-            (0, cookie_1.setCookie)(this.options.cookieName, languageCode, this.options.cookieOptions);
+            setCookie(this.options.cookieName, languageCode, this.options.cookieOptions);
             // localStorage에 저장 (활성화된 경우)
             if (this.options.enableLocalStorage &&
                 typeof localStorage !== "undefined") {
@@ -170,7 +167,6 @@ class LanguageManager {
         this.setLanguage(this.options.defaultLanguage);
     }
 }
-exports.LanguageManager = LanguageManager;
 // 기본 인스턴스 생성
-exports.defaultLanguageManager = new LanguageManager();
+export const defaultLanguageManager = new LanguageManager();
 //# sourceMappingURL=languageManager.js.map

@@ -1,10 +1,12 @@
+"use client";
+
 import { useI18nContext } from "../components/I18nProvider";
 
 export const useTranslation = () => {
   const { currentLanguage, isLoading, translations } = useI18nContext();
 
   // i18nexus 자체 번역 시스템 사용
-  const translate = (key: string, options?: any) => {
+  const translate = (key: string) => {
     const currentTranslations = translations[currentLanguage] || {};
     return currentTranslations[key] || key;
   };
