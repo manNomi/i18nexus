@@ -1,20 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useLanguageSwitcher = exports.useTranslation = void 0;
-const react_i18next_1 = require("react-i18next");
 const I18nProvider_1 = require("../components/I18nProvider");
-const useTranslation = (ns) => {
-    const { t, i18n, ready } = (0, react_i18next_1.useTranslation)(ns);
-    const { currentLanguage, changeLanguage, availableLanguages, languageManager, isLoading, } = (0, I18nProvider_1.useI18nContext)();
+const useTranslation = () => {
+    const { currentLanguage, isLoading, translations } = (0, I18nProvider_1.useI18nContext)();
+    // i18nexus 자체 번역 시스템 사용
+    const translate = (key, options) => {
+        const currentTranslations = translations[currentLanguage] || {};
+        return currentTranslations[key] || key;
+    };
     return {
-        t,
-        i18n,
-        ready,
+        t: translate,
         currentLanguage,
-        changeLanguage,
-        availableLanguages,
-        languageManager,
-        isLoading,
+        isReady: !isLoading,
     };
 };
 exports.useTranslation = useTranslation;

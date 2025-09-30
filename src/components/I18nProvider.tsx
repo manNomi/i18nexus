@@ -5,7 +5,6 @@ import React, {
   ReactNode,
   useState,
 } from "react";
-import { useTranslation } from "react-i18next";
 import {
   LanguageManager,
   LanguageConfig,
@@ -18,6 +17,7 @@ interface I18nContextType {
   availableLanguages: LanguageConfig[];
   languageManager: LanguageManager;
   isLoading: boolean;
+  translations: Record<string, Record<string, string>>;
 }
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
@@ -25,22 +25,24 @@ const I18nContext = createContext<I18nContextType | undefined>(undefined);
 export interface I18nProviderProps {
   children: ReactNode;
   languageManagerOptions?: LanguageManagerOptions;
+  translations?: Record<string, Record<string, string>>;
   onLanguageChange?: (language: string) => void;
 }
 
 export const I18nProvider: React.FC<I18nProviderProps> = ({
   children,
   languageManagerOptions,
+  translations = {},
   onLanguageChange,
 }) => {
-  const { i18n } = useTranslation();
   const [languageManager] = useState(
     () => new LanguageManager(languageManagerOptions),
   );
-  const [currentLanguage, setCurrentLanguage] = useState<string>(() =>
-    languageManager.getCurrentLanguage(),
+  const [currentLanguage, setCurrentLanguage] = useState<string>(
+    languageManagerOptions?.defaultLanguage || 'en'
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   const changeLanguage = async (lang: string): Promise<void> => {
     if (lang === currentLanguage) {
@@ -55,8 +57,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
         throw new Error(`Failed to set language to ${lang}`);
       }
 
-      // i18next 언어 변경
-      await i18n.changeLanguage(lang);
+      // i18nexus 자체 언어 관리
 
       setCurrentLanguage(lang);
 
@@ -70,24 +71,31 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
     }
   };
 
+  // 클라이언트에서 hydration 완료 후 실제 언어 설정 로드
   useEffect(() => {
+    setIsHydrated(true);
+    
+    // 쿠키에서 실제 언어 설정 읽기
+    const actualLanguage = languageManager.getCurrentLanguage();
+    if (actualLanguage !== currentLanguage) {
+      setCurrentLanguage(actualLanguage);
+      onLanguageChange?.(actualLanguage);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+
     // 언어 변경 리스너 등록
     const removeListener = languageManager.addLanguageChangeListener((lang) => {
       if (lang !== currentLanguage) {
         setCurrentLanguage(lang);
-        i18n.changeLanguage(lang);
         onLanguageChange?.(lang);
       }
     });
 
-    // 초기 언어 설정
-    const initLanguage = languageManager.getCurrentLanguage();
-    if (initLanguage !== i18n.language) {
-      i18n.changeLanguage(initLanguage).catch(console.error);
-    }
-
     return removeListener;
-  }, [i18n, languageManager, currentLanguage, onLanguageChange]);
+  }, [languageManager, currentLanguage, onLanguageChange, isHydrated]);
 
   const contextValue: I18nContextType = {
     currentLanguage,
@@ -95,6 +103,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
     availableLanguages: languageManager.getAvailableLanguages(),
     languageManager,
     isLoading,
+    translations,
   };
 
   return (

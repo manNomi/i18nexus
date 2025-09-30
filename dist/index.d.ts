@@ -5,8 +5,4 @@ export { setCookie, getCookie, deleteCookie, getAllCookies, } from "./utils/cook
 export type { CookieOptions } from "./utils/cookie";
 export { LanguageManager, defaultLanguageManager, } from "./utils/languageManager";
 export type { LanguageConfig, LanguageManagerOptions, } from "./utils/languageManager";
-export { TranslationWrapper, runTranslationWrapper } from "./scripts/t-wrapper";
-export type { ScriptConfig } from "./scripts/t-wrapper";
-export { GoogleSheetsManager, defaultGoogleSheetsManager, } from "./scripts/google-sheets";
-export type { GoogleSheetsConfig, TranslationRow, } from "./scripts/google-sheets";
 //# sourceMappingURL=index.d.ts.map

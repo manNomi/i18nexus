@@ -3,14 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useI18nContext = exports.I18nProvider = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
-const react_i18next_1 = require("react-i18next");
 const languageManager_1 = require("../utils/languageManager");
 const I18nContext = (0, react_1.createContext)(undefined);
-const I18nProvider = ({ children, languageManagerOptions, onLanguageChange, }) => {
-    const { i18n } = (0, react_i18next_1.useTranslation)();
+const I18nProvider = ({ children, languageManagerOptions, translations = {}, onLanguageChange, }) => {
     const [languageManager] = (0, react_1.useState)(() => new languageManager_1.LanguageManager(languageManagerOptions));
-    const [currentLanguage, setCurrentLanguage] = (0, react_1.useState)(() => languageManager.getCurrentLanguage());
+    const [currentLanguage, setCurrentLanguage] = (0, react_1.useState)(languageManagerOptions?.defaultLanguage || 'en');
     const [isLoading, setIsLoading] = (0, react_1.useState)(false);
+    const [isHydrated, setIsHydrated] = (0, react_1.useState)(false);
     const changeLanguage = async (lang) => {
         if (lang === currentLanguage) {
             return;
@@ -22,8 +21,7 @@ const I18nProvider = ({ children, languageManagerOptions, onLanguageChange, }) =
             if (!success) {
                 throw new Error(`Failed to set language to ${lang}`);
             }
-            // i18next 언어 변경
-            await i18n.changeLanguage(lang);
+            // i18nexus 자체 언어 관리
             setCurrentLanguage(lang);
             // 콜백 호출
             onLanguageChange?.(lang);
@@ -36,28 +34,35 @@ const I18nProvider = ({ children, languageManagerOptions, onLanguageChange, }) =
             setIsLoading(false);
         }
     };
+    // 클라이언트에서 hydration 완료 후 실제 언어 설정 로드
     (0, react_1.useEffect)(() => {
+        setIsHydrated(true);
+        // 쿠키에서 실제 언어 설정 읽기
+        const actualLanguage = languageManager.getCurrentLanguage();
+        if (actualLanguage !== currentLanguage) {
+            setCurrentLanguage(actualLanguage);
+            onLanguageChange?.(actualLanguage);
+        }
+    }, []);
+    (0, react_1.useEffect)(() => {
+        if (!isHydrated)
+            return;
         // 언어 변경 리스너 등록
         const removeListener = languageManager.addLanguageChangeListener((lang) => {
             if (lang !== currentLanguage) {
                 setCurrentLanguage(lang);
-                i18n.changeLanguage(lang);
                 onLanguageChange?.(lang);
             }
         });
-        // 초기 언어 설정
-        const initLanguage = languageManager.getCurrentLanguage();
-        if (initLanguage !== i18n.language) {
-            i18n.changeLanguage(initLanguage).catch(console.error);
-        }
         return removeListener;
-    }, [i18n, languageManager, currentLanguage, onLanguageChange]);
+    }, [languageManager, currentLanguage, onLanguageChange, isHydrated]);
     const contextValue = {
         currentLanguage,
         changeLanguage,
         availableLanguages: languageManager.getAvailableLanguages(),
         languageManager,
         isLoading,
+        translations,
     };
     return ((0, jsx_runtime_1.jsx)(I18nContext.Provider, { value: contextValue, children: children }));
 };

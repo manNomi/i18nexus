@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defaultGoogleSheetsManager = exports.GoogleSheetsManager = exports.runTranslationWrapper = exports.TranslationWrapper = exports.defaultLanguageManager = exports.LanguageManager = exports.getAllCookies = exports.deleteCookie = exports.getCookie = exports.setCookie = exports.useLanguageSwitcher = exports.useTranslation = exports.useI18nContext = exports.I18nProvider = void 0;
+exports.defaultLanguageManager = exports.LanguageManager = exports.getAllCookies = exports.deleteCookie = exports.getCookie = exports.setCookie = exports.useLanguageSwitcher = exports.useTranslation = exports.useI18nContext = exports.I18nProvider = void 0;
 // Components
 var I18nProvider_1 = require("./components/I18nProvider");
 Object.defineProperty(exports, "I18nProvider", { enumerable: true, get: function () { return I18nProvider_1.I18nProvider; } });
@@ -19,12 +19,9 @@ Object.defineProperty(exports, "getAllCookies", { enumerable: true, get: functio
 var languageManager_1 = require("./utils/languageManager");
 Object.defineProperty(exports, "LanguageManager", { enumerable: true, get: function () { return languageManager_1.LanguageManager; } });
 Object.defineProperty(exports, "defaultLanguageManager", { enumerable: true, get: function () { return languageManager_1.defaultLanguageManager; } });
-// Scripts
-var t_wrapper_1 = require("./scripts/t-wrapper");
-Object.defineProperty(exports, "TranslationWrapper", { enumerable: true, get: function () { return t_wrapper_1.TranslationWrapper; } });
-Object.defineProperty(exports, "runTranslationWrapper", { enumerable: true, get: function () { return t_wrapper_1.runTranslationWrapper; } });
-// Google Sheets Integration
-var google_sheets_1 = require("./scripts/google-sheets");
-Object.defineProperty(exports, "GoogleSheetsManager", { enumerable: true, get: function () { return google_sheets_1.GoogleSheetsManager; } });
-Object.defineProperty(exports, "defaultGoogleSheetsManager", { enumerable: true, get: function () { return google_sheets_1.defaultGoogleSheetsManager; } });
+// Note: CLI tools are available separately:
+// - npx i18n-wrapper (wrap hardcoded strings with t() functions)
+// - npx i18n-extractor (extract translation keys to JSON/CSV)
+// - npx i18n-upload (upload translations to Google Sheets)
+// - npx i18n-download (download translations from Google Sheets)
 //# sourceMappingURL=index.js.map

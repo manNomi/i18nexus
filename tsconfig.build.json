@@ -5,11 +5,18 @@
     "declarationMap": true,
     "sourceMap": true
   },
+  "include": [
+    "src/components/**/*",
+    "src/hooks/**/*",
+    "src/utils/**/*",
+    "src/index.ts"
+  ],
   "exclude": [
     "node_modules",
     "**/*.test.*",
     "**/*.spec.*",
     "sample/**/*",
-    "scripts/**/*"
+    "src/scripts/**/*",
+    "src/bin/**/*"
   ]
 }

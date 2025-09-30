@@ -1,12 +1,7 @@
-export declare const useTranslation: (ns?: string | string[]) => {
-    t: import("i18next").TFunction<string | string[], undefined>;
-    i18n: import("i18next").i18n;
-    ready: boolean;
+export declare const useTranslation: () => {
+    t: (key: string, options?: any) => string;
     currentLanguage: string;
-    changeLanguage: (lang: string) => Promise<void>;
-    availableLanguages: import("..").LanguageConfig[];
-    languageManager: import("..").LanguageManager;
-    isLoading: boolean;
+    isReady: boolean;
 };
 export declare const useLanguageSwitcher: () => {
     currentLanguage: string;

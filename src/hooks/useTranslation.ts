@@ -1,25 +1,18 @@
-import { useTranslation as useReactI18nextTranslation } from "react-i18next";
 import { useI18nContext } from "../components/I18nProvider";
 
-export const useTranslation = (ns?: string | string[]) => {
-  const { t, i18n, ready } = useReactI18nextTranslation(ns);
-  const {
-    currentLanguage,
-    changeLanguage,
-    availableLanguages,
-    languageManager,
-    isLoading,
-  } = useI18nContext();
+export const useTranslation = () => {
+  const { currentLanguage, isLoading, translations } = useI18nContext();
+
+  // i18nexus 자체 번역 시스템 사용
+  const translate = (key: string, options?: any) => {
+    const currentTranslations = translations[currentLanguage] || {};
+    return currentTranslations[key] || key;
+  };
 
   return {
-    t,
-    i18n,
-    ready,
+    t: translate,
     currentLanguage,
-    changeLanguage,
-    availableLanguages,
-    languageManager,
-    isLoading,
+    isReady: !isLoading,
   };
 };
 

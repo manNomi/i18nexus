@@ -6,10 +6,12 @@ interface I18nContextType {
     availableLanguages: LanguageConfig[];
     languageManager: LanguageManager;
     isLoading: boolean;
+    translations: Record<string, Record<string, string>>;
 }
 export interface I18nProviderProps {
     children: ReactNode;
     languageManagerOptions?: LanguageManagerOptions;
+    translations?: Record<string, Record<string, string>>;
     onLanguageChange?: (language: string) => void;
 }
 export declare const I18nProvider: React.FC<I18nProviderProps>;

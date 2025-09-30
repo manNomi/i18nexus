@@ -24,16 +24,8 @@ export type {
   LanguageManagerOptions,
 } from "./utils/languageManager";
 
-// Scripts
-export { TranslationWrapper, runTranslationWrapper } from "./scripts/t-wrapper";
-export type { ScriptConfig } from "./scripts/t-wrapper";
-
-// Google Sheets Integration
-export {
-  GoogleSheetsManager,
-  defaultGoogleSheetsManager,
-} from "./scripts/google-sheets";
-export type {
-  GoogleSheetsConfig,
-  TranslationRow,
-} from "./scripts/google-sheets";
+// Note: CLI tools are available separately:
+// - npx i18n-wrapper (wrap hardcoded strings with t() functions)
+// - npx i18n-extractor (extract translation keys to JSON/CSV)
+// - npx i18n-upload (upload translations to Google Sheets)
+// - npx i18n-download (download translations from Google Sheets)

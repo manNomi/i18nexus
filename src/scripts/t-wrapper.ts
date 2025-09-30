@@ -10,84 +10,33 @@ import * as t from "@babel/types";
 
 export interface ScriptConfig {
   sourcePattern?: string;
-  processKorean?: boolean;
-  processEnglish?: boolean;
-  customTextRegex?: RegExp;
   translationImportSource?: string;
-  generateKeys?: boolean;
-  keyPrefix?: string;
-  namespace?: string;
-  outputDir?: string;
   dryRun?: boolean;
 }
 
 const DEFAULT_CONFIG: Required<ScriptConfig> = {
   sourcePattern: "src/**/*.{js,jsx,ts,tsx}",
-  processKorean: true,
-  processEnglish: false,
-  customTextRegex: /[가-힣]/,
-  translationImportSource: "react-i18next",
-  generateKeys: false,
-  keyPrefix: "",
-  namespace: "common",
-  outputDir: "./locales",
+  translationImportSource: "i18nexus",
   dryRun: false,
 };
 
 export class TranslationWrapper {
   private config: Required<ScriptConfig>;
-  private translationKeys: Map<string, string> = new Map();
 
   constructor(config: Partial<ScriptConfig> = {}) {
     this.config = { ...DEFAULT_CONFIG, ...config };
-
-    // 텍스트 감지 정규식 설정
-    if (this.config.processKorean && this.config.processEnglish) {
-      this.config.customTextRegex = /[가-힣]|[a-zA-Z]{2,}/;
-    } else if (this.config.processKorean) {
-      this.config.customTextRegex = /[가-힣]/;
-    } else if (this.config.processEnglish) {
-      this.config.customTextRegex = /[a-zA-Z]{2,}/;
-    }
-  }
-
-  private generateTranslationKey(text: string): string {
-    if (!this.config.generateKeys) {
-      return text;
-    }
-
-    // 간단한 키 생성: 특수문자 제거, camelCase 변환
-    const key = text
-      .replace(/[^a-zA-Z가-힣0-9\s]/g, "")
-      .split(/\s+/)
-      .filter((word) => word.length > 0)
-      .map((word, index) =>
-        index === 0
-          ? word.toLowerCase()
-          : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
-      )
-      .join("");
-
-    const fullKey = this.config.keyPrefix
-      ? `${this.config.keyPrefix}.${key}`
-      : key;
-    this.translationKeys.set(fullKey, text);
-    return fullKey;
   }
 
   private createUseTranslationHook(): t.VariableDeclaration {
-    const hookCall = this.config.namespace
-      ? t.callExpression(t.identifier("useTranslation"), [
-          t.stringLiteral(this.config.namespace),
-        ])
-      : t.callExpression(t.identifier("useTranslation"), []);
+    // useTranslation()을 빈 값으로 호출 - 내부적으로 현재 언어 자동 주입
+    const hookCall = t.callExpression(t.identifier("useTranslation"), []);
 
     return t.variableDeclaration("const", [
       t.variableDeclarator(
         t.objectPattern([
           t.objectProperty(t.identifier("t"), t.identifier("t"), false, true),
         ]),
-        hookCall,
+        hookCall
       ),
     ]);
   }
@@ -124,13 +73,14 @@ export class TranslationWrapper {
           return;
         }
 
-        if (this.config.customTextRegex.test(subPath.node.value)) {
+        // 한국어나 영어 텍스트가 포함된 문자열만 처리
+        if (
+          /[가-힣]/.test(subPath.node.value) ||
+          /[a-zA-Z]{2,}/.test(subPath.node.value)
+        ) {
           wasModified = true;
-          const translationKey = this.generateTranslationKey(
-            subPath.node.value,
-          );
           const replacement = t.callExpression(t.identifier("t"), [
-            t.stringLiteral(translationKey),
+            t.stringLiteral(subPath.node.value),
           ]);
 
           if (t.isJSXAttribute(subPath.parent)) {
@@ -155,15 +105,15 @@ export class TranslationWrapper {
             (spec) =>
               t.isImportSpecifier(spec) &&
               t.isIdentifier(spec.imported) &&
-              spec.imported.name === "useTranslation",
+              spec.imported.name === "useTranslation"
           );
 
           if (!hasUseTranslation) {
             path.node.specifiers.push(
               t.importSpecifier(
                 t.identifier("useTranslation"),
-                t.identifier("useTranslation"),
-              ),
+                t.identifier("useTranslation")
+              )
             );
           }
           hasImport = true;
@@ -176,10 +126,10 @@ export class TranslationWrapper {
         [
           t.importSpecifier(
             t.identifier("useTranslation"),
-            t.identifier("useTranslation"),
+            t.identifier("useTranslation")
           ),
         ],
-        t.stringLiteral(this.config.translationImportSource),
+        t.stringLiteral(this.config.translationImportSource)
       );
       ast.program.body.unshift(importDeclaration);
       return true;
@@ -194,7 +144,6 @@ export class TranslationWrapper {
 
   public async processFiles(): Promise<{
     processedFiles: string[];
-    translationKeys: Map<string, string>;
   }> {
     const filePaths = await glob(this.config.sourcePattern);
     const processedFiles: string[] = [];
@@ -287,7 +236,7 @@ export class TranslationWrapper {
 
           processedFiles.push(filePath);
           console.log(
-            `🔧 ${filePath} - ${this.config.dryRun ? "Would be modified" : "Modified"}`,
+            `🔧 ${filePath} - ${this.config.dryRun ? "Would be modified" : "Modified"}`
           );
         }
       } catch (error) {
@@ -297,66 +246,23 @@ export class TranslationWrapper {
 
     return {
       processedFiles,
-      translationKeys: this.translationKeys,
     };
-  }
-
-  public async generateTranslationFiles(outputDir?: string): Promise<void> {
-    const dir = outputDir || this.config.outputDir;
-
-    if (this.translationKeys.size === 0) {
-      console.log("📝 No translation keys generated");
-      return;
-    }
-
-    const translationObj: Record<string, string> = {};
-    this.translationKeys.forEach((value, key) => {
-      translationObj[key] = value;
-    });
-
-    if (!this.config.dryRun) {
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-
-      const filePath = path.join(dir, `${this.config.namespace}.json`);
-      fs.writeFileSync(
-        filePath,
-        JSON.stringify(translationObj, null, 2),
-        "utf-8",
-      );
-    }
-
-    console.log(
-      `📝 ${this.config.dryRun ? "Would generate" : "Generated"} translation file: ${path.join(dir, `${this.config.namespace}.json`)}`,
-    );
-    console.log(
-      `🔑 ${this.config.dryRun ? "Would generate" : "Generated"} ${this.translationKeys.size} translation keys`,
-    );
   }
 }
 
 export async function runTranslationWrapper(
-  config: Partial<ScriptConfig> = {},
+  config: Partial<ScriptConfig> = {}
 ) {
   const wrapper = new TranslationWrapper(config);
 
   console.log("🚀 Starting translation wrapper...");
   const startTime = Date.now();
 
-  const { processedFiles, translationKeys } = await wrapper.processFiles();
-
-  if (config.generateKeys && translationKeys.size > 0) {
-    await wrapper.generateTranslationFiles();
-  }
+  const { processedFiles } = await wrapper.processFiles();
 
   const endTime = Date.now();
   console.log(`\n✅ Translation wrapper completed in ${endTime - startTime}ms`);
   console.log(`📊 Processed ${processedFiles.length} files`);
-
-  if (translationKeys.size > 0) {
-    console.log(`🔑 Generated ${translationKeys.size} translation keys`);
-  }
 }
 
 // CLI 실행 부분
@@ -370,25 +276,6 @@ if (require.main === module) {
       case "-p":
         config.sourcePattern = args[++i];
         break;
-      case "--generate-keys":
-      case "-g":
-        config.generateKeys = true;
-        break;
-      case "--namespace":
-      case "-n":
-        config.namespace = args[++i];
-        break;
-      case "--english":
-      case "-e":
-        config.processEnglish = true;
-        break;
-      case "--key-prefix":
-        config.keyPrefix = args[++i];
-        break;
-      case "--output-dir":
-      case "-o":
-        config.outputDir = args[++i];
-        break;
       case "--dry-run":
       case "-d":
         config.dryRun = true;
@@ -400,19 +287,13 @@ Usage: t-wrapper [options]
 
 Options:
   -p, --pattern <pattern>    Source file pattern (default: "src/**/*.{js,jsx,ts,tsx}")
-  -g, --generate-keys        Generate translation keys automatically
-  -n, --namespace <ns>       Translation namespace (default: "common")
-  -e, --english             Process English text too
-  --key-prefix <prefix>      Prefix for generated keys
-  -o, --output-dir <dir>     Output directory for translation files (default: "./locales")
   -d, --dry-run             Preview changes without modifying files
   -h, --help                Show this help message
 
 Examples:
   t-wrapper
-  t-wrapper -p "app/**/*.tsx" -g -n "components"
-  t-wrapper --generate-keys --english --dry-run
-  t-wrapper -g -n "common" -o "./translations"
+  t-wrapper -p "app/**/*.tsx"
+  t-wrapper --dry-run
         `);
         process.exit(0);
         break;
