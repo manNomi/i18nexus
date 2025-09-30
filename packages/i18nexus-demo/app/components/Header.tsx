@@ -9,14 +9,14 @@ export default function Header() {
   const pathname = usePathname();
 
   const navItems = [
-    { href: "/", label: currentLanguage === "ko" ? "소개" : "Introduction" },
+    { href: "/", label: currentLanguage === "ko" ? "홈" : "Home" },
     {
-      href: "/explanation",
-      label: currentLanguage === "ko" ? "설명" : "Explanation",
+      href: "/provider",
+      label: currentLanguage === "ko" ? "Provider" : "Provider",
     },
     {
-      href: "/architecture",
-      label: currentLanguage === "ko" ? "구조-원리" : "Architecture",
+      href: "/cli",
+      label: currentLanguage === "ko" ? "CLI 도구" : "CLI Tools",
     },
   ];
 

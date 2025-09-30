@@ -91,6 +91,20 @@ export class TranslationWrapper {
           }
         }
       },
+      JSXText: (subPath) => {
+        const trimmedValue = subPath.node.value.trim();
+        // 한국어가 포함된 JSX 텍스트만 처리
+        if (trimmedValue && /[가-힣]/.test(trimmedValue)) {
+          wasModified = true;
+          subPath.replaceWith(
+            t.jsxExpressionContainer(
+              t.callExpression(t.identifier("t"), [
+                t.stringLiteral(trimmedValue),
+              ])
+            )
+          );
+        }
+      },
     });
 
     return wasModified;
@@ -225,7 +239,7 @@ export class TranslationWrapper {
 
           if (!this.config.dryRun) {
             const output = generate(ast, {
-              retainLines: true,
+              retainLines: false,
               compact: false,
               jsescOption: {
                 minimal: true,
