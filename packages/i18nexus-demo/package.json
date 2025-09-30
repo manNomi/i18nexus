@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "i18next": "^25.5.2",
-    "i18nexus": "^2.0.6",
+    "i18nexus": "file:../i18nexus",
     "next": "15.5.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,7 +30,7 @@
     "@types/react-dom": "^18",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
-    "i18nexus-cli": "^3.8.2",
+    "i18nexus-tools": "file:../i18nexus-cli",
     "null-loader": "^4.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
@@ -48,7 +48,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/manNomi/i18nexus.git",
-    "directory": "demo"
+    "directory": "packages/i18nexus-demo"
   },
   "bugs": {
     "url": "https://github.com/manNomi/i18nexus/issues"
