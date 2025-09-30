@@ -120,7 +120,7 @@ export default function Welcome() {
         </div>
 
         <p className="text-slate-400 mb-6">
-          {t("Extract translation keys from your code and generate translation files")}
+          {t("Extract translation keys from your code and automatically merge with existing translations")}
         </p>
 
         <div className="space-y-6">
@@ -129,32 +129,93 @@ export default function Welcome() {
               {t("Basic Usage")}
             </h3>
             <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg overflow-x-auto text-sm">
-              <code>{`# Extract keys to JSON format
-npx i18n-extractor --output-format json
+              <code>{`# Extract and merge with existing en.json, ko.json
+npx i18n-extractor -p "app/**/*.tsx" -d "./lib/translations"
 
-# Extract to CSV for translators
-npx i18n-extractor --output-format csv
+# Generate specific language files
+npx i18n-extractor -l "en,ko,ja" -d "./lib/translations"
 
-# Specify output directory
-npx i18n-extractor --output-dir "./locales"
+# Preview changes without modifying files
+npx i18n-extractor --dry-run
 
-# Extract from specific files
-npx i18n-extractor --pattern "app/**/*.tsx"`}</code>
+# Create new files without merging
+npx i18n-extractor --no-merge`}</code>
+            </pre>
+          </div>
+
+          <div className="bg-green-900/20 border border-green-800 rounded-lg p-6">
+            <h4 className="font-semibold text-green-400 mb-3">
+              ✨ {t("Smart Merging")}
+            </h4>
+            <p className="text-slate-300 text-sm mb-3">
+              {t("The extractor intelligently merges with existing translations:")}
+            </p>
+            <ul className="text-slate-300 text-sm space-y-2">
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span>{t("Preserves all existing translations")}</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span>{t("Adds only new keys found in your code")}</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span>{t("Automatically sorts keys alphabetically")}</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span>{t("Shows detailed statistics of changes")}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-3">
+              {t("Output Example")}
+            </h3>
+            <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg overflow-x-auto text-sm">
+              <code>{`🔍 Starting translation key extraction...
+📂 Found 8 files to analyze
+🔑 Found 94 unique translation keys
+
+📊 en.json - Added 11 new keys:
+   + "새로운 키 1"
+   + "새로운 키 2"
+
+✓ en.json - Preserved 83 existing translations
+
+📝 en.json: 94 total keys (11 new, 83 existing)
+📝 ko.json: 94 total keys (85 new, 9 existing)`}</code>
             </pre>
           </div>
 
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">
-              {t("Generated Output (JSON)")}
+              {t("Generated Files")}
             </h3>
-            <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg overflow-x-auto text-sm">
-              <code>{`{
-  "환영합니다": "환영합니다",
-  "i18nexus 사용법": "i18nexus 사용법",
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <p className="text-sm text-slate-400 mb-2">lib/translations/en.json</p>
+                <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg text-sm">
+                  <code>{`{
   "Quick Start": "Quick Start",
-  "Why i18nexus?": "Why i18nexus?"
+  "Why i18nexus?": "Why i18nexus?",
+  "환영합니다": "Welcome"
 }`}</code>
-            </pre>
+                </pre>
+              </div>
+              <div>
+                <p className="text-sm text-slate-400 mb-2">lib/translations/ko.json</p>
+                <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg text-sm">
+                  <code>{`{
+  "Quick Start": "빠른 시작",
+  "Why i18nexus?": "왜 i18nexus인가?",
+  "환영합니다": "환영합니다"
+}`}</code>
+                </pre>
+              </div>
+            </div>
           </div>
         </div>
       </section>
