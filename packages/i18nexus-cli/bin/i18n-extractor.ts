@@ -28,6 +28,13 @@ for (let i = 0; i < args.length; i++) {
       }
       config.outputFormat = format as "json" | "csv";
       break;
+    case "--languages":
+    case "-l":
+      config.languages = args[++i].split(",");
+      break;
+    case "--no-merge":
+      config.mergeWithExisting = false;
+      break;
     case "--dry-run":
       config.dryRun = true;
       break;
@@ -36,26 +43,30 @@ for (let i = 0; i < args.length; i++) {
       console.log(`
 Usage: i18n-extractor [options]
 
-t() 함수 호출에서 번역 키를 추출하여 JSON 또는 CSV 파일을 생성합니다.
+t() 함수 호출에서 번역 키를 추출하여 언어별 JSON 파일을 생성/업데이트합니다.
 
 Options:
   -p, --pattern <pattern>     소스 파일 패턴 (기본값: "src/**/*.{js,jsx,ts,tsx}")
   -o, --output <file>         출력 파일명 (기본값: "extracted-translations.json")
   -d, --output-dir <dir>      출력 디렉토리 (기본값: "./locales")
   -f, --format <format>       출력 형식: json|csv (기본값: "json")
+  -l, --languages <langs>     생성할 언어 파일들 (기본값: "en,ko")
+  --no-merge                  기존 번역과 병합하지 않고 새로 생성
   --dry-run                   실제 파일 생성 없이 미리보기
   -h, --help                  도움말 표시
 
 Examples:
-  i18n-extractor                                  # 기본 설정으로 키 추출 (JSON)
-  i18n-extractor -p "app/**/*.tsx" -o "keys.json" # 커스텀 패턴과 출력 파일
-  i18n-extractor -f csv -o "translations.csv"     # 구글 시트용 CSV 형식으로 출력
+  i18n-extractor                                  # 기본 설정으로 en.json, ko.json 업데이트
+  i18n-extractor -p "app/**/*.tsx"                # 커스텀 패턴으로 추출
+  i18n-extractor -l "en,ko,ja"                    # 3개 언어 파일 생성
+  i18n-extractor -d "./lib/translations"          # 특정 디렉토리에 생성
+  i18n-extractor --no-merge                       # 기존 번역 무시하고 새로 생성
   i18n-extractor --dry-run                        # 추출 결과 미리보기
   
 Features:
   - t() 함수 호출에서 번역 키 자동 추출
-  - JSON: i18n-core 호환 형식 출력
-  - CSV: 구글 시트 호환 형식 출력 (Key, English, Korean)
+  - 기존 번역 파일과 자동 병합 (새 키만 추가)
+  - 언어별 파일 생성 (en.json, ko.json 등)
   - 중복 키 감지 및 보고
       `);
       process.exit(0);

@@ -17,6 +17,8 @@ export interface ExtractorConfig {
   sortKeys?: boolean;
   dryRun?: boolean;
   outputFormat?: "json" | "csv";
+  languages?: string[]; // 생성할 언어 파일들 (예: ["en", "ko"])
+  mergeWithExisting?: boolean; // 기존 번역 파일과 병합
 }
 
 const DEFAULT_CONFIG: Required<ExtractorConfig> = {
@@ -29,6 +31,8 @@ const DEFAULT_CONFIG: Required<ExtractorConfig> = {
   sortKeys: true,
   dryRun: false,
   outputFormat: "json",
+  languages: ["en", "ko"],
+  mergeWithExisting: true,
 };
 
 export interface ExtractedKey {
@@ -216,6 +220,42 @@ export class TranslationExtractor {
     return value;
   }
 
+  private loadExistingTranslations(language: string): Record<string, string> {
+    const filePath = pathLib.join(this.config.outputDir, `${language}.json`);
+    
+    if (!fs.existsSync(filePath)) {
+      return {};
+    }
+
+    try {
+      const content = fs.readFileSync(filePath, "utf-8");
+      return JSON.parse(content);
+    } catch (error) {
+      console.warn(`⚠️  Failed to load existing translations from ${filePath}`);
+      return {};
+    }
+  }
+
+  private mergeTranslations(
+    extracted: Record<string, string>,
+    existing: Record<string, string>
+  ): { merged: Record<string, string>; newKeys: string[]; existingKeys: string[] } {
+    const merged: Record<string, string> = { ...existing };
+    const newKeys: string[] = [];
+    const existingKeys: string[] = [];
+
+    for (const key of Object.keys(extracted)) {
+      if (key in existing) {
+        existingKeys.push(key);
+      } else {
+        merged[key] = extracted[key];
+        newKeys.push(key);
+      }
+    }
+
+    return { merged, newKeys, existingKeys };
+  }
+
   private writeOutputFile(data: any): void {
     let outputPath: string;
     let content: string;
@@ -225,26 +265,91 @@ export class TranslationExtractor {
       const csvFileName = this.config.outputFile.replace(/\.json$/, ".csv");
       outputPath = pathLib.join(this.config.outputDir, csvFileName);
       content = data; // CSV는 이미 문자열
+      
+      // 디렉토리가 없으면 생성
+      if (!fs.existsSync(this.config.outputDir)) {
+        fs.mkdirSync(this.config.outputDir, { recursive: true });
+      }
+
+      if (this.config.dryRun) {
+        console.log("📄 Dry run - output would be written to:", outputPath);
+        console.log("📄 Content preview:");
+        console.log(content.substring(0, 500) + "...");
+        return;
+      }
+
+      fs.writeFileSync(outputPath, content);
+      console.log(`📝 Extracted translations written to: ${outputPath}`);
     } else {
-      // JSON 파일로 출력 (기존)
-      outputPath = pathLib.join(this.config.outputDir, this.config.outputFile);
-      content = JSON.stringify(data, null, 2);
-    }
+      // JSON 형식 - 언어별 파일 생성
+      // 디렉토리가 없으면 생성
+      if (!fs.existsSync(this.config.outputDir)) {
+        fs.mkdirSync(this.config.outputDir, { recursive: true });
+      }
 
-    // 디렉토리가 없으면 생성
-    if (!fs.existsSync(this.config.outputDir)) {
-      fs.mkdirSync(this.config.outputDir, { recursive: true });
-    }
+      this.config.languages.forEach((lang) => {
+        const langFilePath = pathLib.join(this.config.outputDir, `${lang}.json`);
+        
+        let finalData: Record<string, string>;
+        let stats = { new: 0, existing: 0, total: 0 };
 
-    if (this.config.dryRun) {
-      console.log("📄 Dry run - output would be written to:", outputPath);
-      console.log("📄 Content preview:");
-      console.log(content.substring(0, 500) + "...");
-      return;
-    }
+        if (this.config.mergeWithExisting) {
+          // 기존 번역 로드
+          const existingTranslations = this.loadExistingTranslations(lang);
+          
+          // 병합
+          const { merged, newKeys, existingKeys } = this.mergeTranslations(
+            data,
+            existingTranslations
+          );
+          
+          finalData = merged;
+          stats = {
+            new: newKeys.length,
+            existing: existingKeys.length,
+            total: Object.keys(merged).length
+          };
 
-    fs.writeFileSync(outputPath, content);
-    console.log(`📝 Extracted translations written to: ${outputPath}`);
+          if (newKeys.length > 0) {
+            console.log(`\n📊 ${lang}.json - Added ${newKeys.length} new keys:`);
+            newKeys.forEach((key) => console.log(`   + "${key}"`));
+          }
+          if (existingKeys.length > 0) {
+            console.log(`\n✓ ${lang}.json - Preserved ${existingKeys.length} existing translations`);
+          }
+        } else {
+          finalData = data;
+          stats = {
+            new: Object.keys(data).length,
+            existing: 0,
+            total: Object.keys(data).length
+          };
+        }
+
+        // 키 정렬
+        if (this.config.sortKeys) {
+          const sortedData: Record<string, string> = {};
+          Object.keys(finalData)
+            .sort()
+            .forEach((key) => {
+              sortedData[key] = finalData[key];
+            });
+          finalData = sortedData;
+        }
+
+        const content = JSON.stringify(finalData, null, 2);
+
+        if (this.config.dryRun) {
+          console.log(`\n📄 Dry run - ${lang}.json would be written to:`, langFilePath);
+          console.log("📄 Content preview:");
+          console.log(content.substring(0, 300) + "...");
+          return;
+        }
+
+        fs.writeFileSync(langFilePath, content);
+        console.log(`\n📝 ${lang}.json: ${stats.total} total keys (${stats.new} new, ${stats.existing} existing)`);
+      });
+    }
   }
 
   public async extract(): Promise<void> {
