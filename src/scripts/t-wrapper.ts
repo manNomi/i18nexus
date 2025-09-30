@@ -36,7 +36,7 @@ export class TranslationWrapper {
         t.objectPattern([
           t.objectProperty(t.identifier("t"), t.identifier("t"), false, true),
         ]),
-        hookCall
+        hookCall,
       ),
     ]);
   }
@@ -105,15 +105,15 @@ export class TranslationWrapper {
             (spec) =>
               t.isImportSpecifier(spec) &&
               t.isIdentifier(spec.imported) &&
-              spec.imported.name === "useTranslation"
+              spec.imported.name === "useTranslation",
           );
 
           if (!hasUseTranslation) {
             path.node.specifiers.push(
               t.importSpecifier(
                 t.identifier("useTranslation"),
-                t.identifier("useTranslation")
-              )
+                t.identifier("useTranslation"),
+              ),
             );
           }
           hasImport = true;
@@ -126,10 +126,10 @@ export class TranslationWrapper {
         [
           t.importSpecifier(
             t.identifier("useTranslation"),
-            t.identifier("useTranslation")
+            t.identifier("useTranslation"),
           ),
         ],
-        t.stringLiteral(this.config.translationImportSource)
+        t.stringLiteral(this.config.translationImportSource),
       );
       ast.program.body.unshift(importDeclaration);
       return true;
@@ -236,7 +236,7 @@ export class TranslationWrapper {
 
           processedFiles.push(filePath);
           console.log(
-            `🔧 ${filePath} - ${this.config.dryRun ? "Would be modified" : "Modified"}`
+            `🔧 ${filePath} - ${this.config.dryRun ? "Would be modified" : "Modified"}`,
           );
         }
       } catch (error) {
@@ -251,7 +251,7 @@ export class TranslationWrapper {
 }
 
 export async function runTranslationWrapper(
-  config: Partial<ScriptConfig> = {}
+  config: Partial<ScriptConfig> = {},
 ) {
   const wrapper = new TranslationWrapper(config);
 

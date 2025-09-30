@@ -39,7 +39,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
     () => new LanguageManager(languageManagerOptions),
   );
   const [currentLanguage, setCurrentLanguage] = useState<string>(
-    languageManagerOptions?.defaultLanguage || 'en'
+    languageManagerOptions?.defaultLanguage || "en",
   );
   const [isLoading, setIsLoading] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
@@ -74,7 +74,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
   // 클라이언트에서 hydration 완료 후 실제 언어 설정 로드
   useEffect(() => {
     setIsHydrated(true);
-    
+
     // 쿠키에서 실제 언어 설정 읽기
     const actualLanguage = languageManager.getCurrentLanguage();
     if (actualLanguage !== currentLanguage) {
