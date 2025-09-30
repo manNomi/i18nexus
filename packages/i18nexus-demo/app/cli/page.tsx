@@ -1,20 +1,17 @@
 "use client";
 
 import { useTranslation } from "i18nexus";
-
 export default function CLIPage() {
-  const { t } = useTranslation();
-
-  return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  const {
+    t
+  } = useTranslation();
+  return <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-12">
         <h1 className="text-4xl font-bold text-white mb-4">
           {t("CLI Tools Guide")}
         </h1>
         <p className="text-xl text-slate-400">
-          {t(
-            "Automate your i18n workflow with powerful command-line tools"
-          )}
+          {t("Automate your i18n workflow with powerful command-line tools")}
         </p>
       </div>
 
@@ -38,9 +35,7 @@ export default function CLIPage() {
         </div>
 
         <p className="text-slate-400 mb-6">
-          {t(
-            "Automatically wraps Korean text with t() functions and adds useTranslation imports"
-          )}
+          {t("Automatically wraps Korean text with t() functions and adds useTranslation imports")}
         </p>
 
         <div className="space-y-6">
@@ -68,30 +63,13 @@ npx i18n-wrapper --dry-run`}</code>
               <div>
                 <p className="text-sm text-slate-400 mb-2">{t("Before")}</p>
                 <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg text-sm">
-                  <code>{`export default function Welcome() {
-  return (
-    <div>
-      <h1>환영합니다</h1>
-      <p>i18nexus 사용법</p>
-    </div>
-  );
-}`}</code>
+                  <code>{t("export default function Welcome() {\n  return (\n    <div>\n      <h1>환영합니다</h1>\n      <p>i18nexus 사용법</p>\n    </div>\n  );\n}")}</code>
                 </pre>
               </div>
               <div>
                 <p className="text-sm text-slate-400 mb-2">{t("After")}</p>
                 <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg text-sm">
-                  <code>{`import { useTranslation } from "i18nexus";
-
-export default function Welcome() {
-  const { t } = useTranslation();
-  return (
-    <div>
-      <h1>{t("환영합니다")}</h1>
-      <p>{t("i18nexus 사용법")}</p>
-    </div>
-  );
-}`}</code>
+                  <code>{t("import { useTranslation } from \"i18nexus\";\n\nexport default function Welcome() {\n  const { t } = useTranslation();\n  return (\n    <div>\n      <h1>{t(\"환영합니다\")}</h1>\n      <p>{t(\"i18nexus 사용법\")}</p>\n    </div>\n  );\n}")}</code>
                 </pre>
               </div>
             </div>
@@ -102,9 +80,7 @@ export default function Welcome() {
               💡 {t("Pro Tip")}
             </h4>
             <p className="text-slate-300 text-sm">
-              {t(
-                "The wrapper intelligently detects Korean text and skips already wrapped text, imports, and object keys"
-              )}
+              {t("The wrapper intelligently detects Korean text and skips already wrapped text, imports, and object keys")}
             </p>
           </div>
         </div>
@@ -175,18 +151,7 @@ npx i18n-extractor --no-merge`}</code>
               {t("Output Example")}
             </h3>
             <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg overflow-x-auto text-sm">
-              <code>{`🔍 Starting translation key extraction...
-📂 Found 8 files to analyze
-🔑 Found 94 unique translation keys
-
-📊 en.json - Added 11 new keys:
-   + "새로운 키 1"
-   + "새로운 키 2"
-
-✓ en.json - Preserved 83 existing translations
-
-📝 en.json: 94 total keys (11 new, 83 existing)
-📝 ko.json: 94 total keys (85 new, 9 existing)`}</code>
+              <code>{t("🔍 Starting translation key extraction...\n📂 Found 8 files to analyze\n🔑 Found 94 unique translation keys\n\n📊 en.json - Added 11 new keys:\n   + \"새로운 키 1\"\n   + \"새로운 키 2\"\n\n✓ en.json - Preserved 83 existing translations\n\n📝 en.json: 94 total keys (11 new, 83 existing)\n📝 ko.json: 94 total keys (85 new, 9 existing)")}</code>
             </pre>
           </div>
 
@@ -198,21 +163,13 @@ npx i18n-extractor --no-merge`}</code>
               <div>
                 <p className="text-sm text-slate-400 mb-2">lib/translations/en.json</p>
                 <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg text-sm">
-                  <code>{`{
-  "Quick Start": "Quick Start",
-  "Why i18nexus?": "Why i18nexus?",
-  "환영합니다": "Welcome"
-}`}</code>
+                  <code>{t("{\n  \"Quick Start\": \"Quick Start\",\n  \"Why i18nexus?\": \"Why i18nexus?\",\n  \"환영합니다\": \"Welcome\"\n}")}</code>
                 </pre>
               </div>
               <div>
                 <p className="text-sm text-slate-400 mb-2">lib/translations/ko.json</p>
                 <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg text-sm">
-                  <code>{`{
-  "Quick Start": "빠른 시작",
-  "Why i18nexus?": "왜 i18nexus인가?",
-  "환영합니다": "환영합니다"
-}`}</code>
+                  <code>{t("{\n  \"Quick Start\": \"빠른 시작\",\n  \"Why i18nexus?\": \"왜 i18nexus인가?\",\n  \"환영합니다\": \"환영합니다\"\n}")}</code>
                 </pre>
               </div>
             </div>
@@ -368,6 +325,5 @@ npx i18n-extractor --no-merge`}</code>
           </div>
         </div>
       </section>
-    </main>
-  );
+    </main>;
 }

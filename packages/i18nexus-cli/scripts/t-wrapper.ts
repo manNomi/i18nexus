@@ -105,6 +105,31 @@ export class TranslationWrapper {
           );
         }
       },
+      TemplateLiteral: (subPath) => {
+        // 템플릿 리터럴에서 한국어 감지
+        // 표현식이 없고(${} 없음) 한국어가 포함된 경우만 처리
+        if (
+          subPath.node.expressions.length === 0 &&
+          subPath.node.quasis.length === 1
+        ) {
+          const text = subPath.node.quasis[0].value.cooked || "";
+          const trimmedText = text.trim();
+          
+          if (trimmedText && /[가-힣]/.test(trimmedText)) {
+            wasModified = true;
+            const replacement = t.callExpression(t.identifier("t"), [
+              t.stringLiteral(trimmedText),
+            ]);
+
+            // JSX 내부인지 확인
+            if (t.isJSXExpressionContainer(subPath.parent)) {
+              subPath.replaceWith(replacement);
+            } else {
+              subPath.replaceWith(replacement);
+            }
+          }
+        }
+      },
     });
 
     return wasModified;

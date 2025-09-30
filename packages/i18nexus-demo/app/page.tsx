@@ -1,12 +1,11 @@
 "use client";
 
 import { useTranslation } from "i18nexus";
-
 export default function HomePage() {
-  const { t } = useTranslation();
-
-  return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  const {
+    t
+  } = useTranslation();
+  return <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Hero Section */}
       <div className="text-center mb-20">
         <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl mb-6">
@@ -19,16 +18,10 @@ export default function HomePage() {
           {t("From Installation to Advanced Usage")}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a
-            href="/provider"
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
-          >
+          <a href="/provider" className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
             {t("Provider Guide")}
           </a>
-          <a
-            href="/cli"
-            className="px-6 py-3 border border-slate-600 text-slate-300 rounded-lg font-medium hover:bg-slate-800 transition-colors"
-          >
+          <a href="/cli" className="px-6 py-3 border border-slate-600 text-slate-300 rounded-lg font-medium hover:bg-slate-800 transition-colors">
             {t("CLI Tools Guide")}
           </a>
         </div>
@@ -68,29 +61,7 @@ npm install -D i18nexus-tools`}</code>
               {t("3. Setup Provider (Required)")}
             </h3>
             <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg overflow-x-auto text-sm">
-              <code>{`// app/layout.tsx
-import { I18nProvider } from "i18nexus";
-import { cookies } from "next/headers";
-
-export default function RootLayout({ children }) {
-  const language = cookies().get("i18n-language")?.value || "ko";
-
-  return (
-    <html lang={language}>
-      <body>
-        <I18nProvider
-          initialLanguage={language}
-          translations={{
-            ko: { "환영합니다": "환영합니다" },
-            en: { "환영합니다": "Welcome" }
-          }}
-        >
-          {children}
-        </I18nProvider>
-      </body>
-    </html>
-  );
-}`}</code>
+              <code>{t("// app/layout.tsx\nimport { I18nProvider } from \"i18nexus\";\nimport { cookies } from \"next/headers\";\n\nexport default function RootLayout({ children }) {\n  const language = cookies().get(\"i18n-language\")?.value || \"ko\";\n\n  return (\n    <html lang={language}>\n      <body>\n        <I18nProvider\n          initialLanguage={language}\n          translations={{\n            ko: { \"환영합니다\": \"환영합니다\" },\n            en: { \"환영합니다\": \"Welcome\" }\n          }}\n        >\n          {children}\n        </I18nProvider>\n      </body>\n    </html>\n  );\n}")}</code>
             </pre>
           </div>
         </div>
@@ -168,9 +139,7 @@ export default function RootLayout({ children }) {
         </div>
 
         <p className="text-slate-400 mb-6">
-          {t(
-            "This demo follows the recommended Next.js App Router structure with i18nexus:"
-          )}
+          {t("This demo follows the recommended Next.js App Router structure with i18nexus:")}
         </p>
 
         <div className="bg-slate-800 rounded-lg p-6">
@@ -219,6 +188,5 @@ lib/
           </div>
         </div>
       </section>
-    </main>
-  );
+    </main>;
 }

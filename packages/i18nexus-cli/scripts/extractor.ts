@@ -99,6 +99,14 @@ export class TranslationExtractor {
     }
 
     const key = firstArg.value;
+    
+    // 긴 코드 블록은 제외 (3줄 이상 또는 100자 이상)
+    const lineCount = (key.match(/\n/g) || []).length + 1;
+    if (lineCount > 3 || key.length > 100) {
+      console.log(`⏭️  Skipping long code block (${lineCount} lines, ${key.length} chars)`);
+      return;
+    }
+    
     const loc = node.loc;
 
     const extractedKey: ExtractedKey = {

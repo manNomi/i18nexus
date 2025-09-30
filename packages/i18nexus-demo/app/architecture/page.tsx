@@ -1,12 +1,12 @@
 "use client";
+
 import { useTranslation } from "i18nexus";
 import Header from "../components/Header";
-
 export default function ArchitecturePage() {
-  const { t } = useTranslation();
-
-  return (
-    <div className="min-h-screen bg-slate-950">
+  const {
+    t
+  } = useTranslation();
+  return <div className="min-h-screen bg-slate-950">
       <Header />
 
       {/* Main Content */}
@@ -17,17 +17,13 @@ export default function ArchitecturePage() {
             {t("아키텍처 및 원칙")}
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-            {t(
-              "현대적 원칙으로 구축되고 확장성과 유지보수성을 위해 설계되었습니다."
-            )}
+            {t("현대적 원칙으로 구축되고 확장성과 유지보수성을 위해 설계되었습니다.")}
           </p>
         </div>
 
         {/* Architecture Diagram */}
         <section className="bg-slate-900 rounded-xl border border-slate-800 p-8 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-6">
-            시스템 아키텍처
-          </h2>
+          <h2 className="text-2xl font-bold text-white mb-6">{t("시스템 아키텍처")}</h2>
           <div className="bg-slate-950 text-white p-6 rounded-lg overflow-x-auto">
             <pre className="text-sm">
               {`┌─────────────────────────────────────────┐
@@ -81,10 +77,10 @@ export default function ArchitecturePage() {
                   {t("최소한의 설정으로 최대한의 기능 제공")}
                 </p>
                 <ul className="space-y-1 text-sm text-slate-400">
-                  <li>• 직관적이고 예측 가능한 API</li>
-                  <li>• 강력한 TypeScript 지원</li>
-                  <li>• 상세한 에러 메시지</li>
-                  <li>• 포괄적인 문서화</li>
+                  <li>{t("• 직관적이고 예측 가능한 API")}</li>
+                  <li>{t("• 강력한 TypeScript 지원")}</li>
+                  <li>{t("• 상세한 에러 메시지")}</li>
+                  <li>{t("• 포괄적인 문서화")}</li>
                 </ul>
               </div>
             </div>
@@ -102,10 +98,10 @@ export default function ArchitecturePage() {
                   {t("자동 코드 변환 및 번역 관리")}
                 </p>
                 <ul className="space-y-1 text-sm text-slate-400">
-                  <li>• 하드코딩된 문자열 자동 래핑</li>
-                  <li>• 구글 시트 자동 동기화</li>
-                  <li>• 번역 키 자동 추출</li>
-                  <li>• 실시간 업데이트</li>
+                  <li>{t("• 하드코딩된 문자열 자동 래핑")}</li>
+                  <li>{t("• 구글 시트 자동 동기화")}</li>
+                  <li>{t("• 번역 키 자동 추출")}</li>
+                  <li>{t("• 실시간 업데이트")}</li>
                 </ul>
               </div>
             </div>
@@ -123,10 +119,10 @@ export default function ArchitecturePage() {
                   {t("불필요한 재렌더링 방지 및 상태 관리 최적화")}
                 </p>
                 <ul className="space-y-1 text-sm text-slate-400">
-                  <li>• 메모이제이션 활용</li>
-                  <li>• 최적화된 상태 관리</li>
-                  <li>• React 18 동시성 지원</li>
-                  <li>• 지연 로딩 지원</li>
+                  <li>{t("• 메모이제이션 활용")}</li>
+                  <li>{t("• 최적화된 상태 관리")}</li>
+                  <li>{t("• React 18 동시성 지원")}</li>
+                  <li>{t("• 지연 로딩 지원")}</li>
                 </ul>
               </div>
             </div>
@@ -137,17 +133,13 @@ export default function ArchitecturePage() {
                 <span className="text-2xl">🔧</span>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  확장성
-                </h3>
-                <p className="text-slate-400 mb-3">
-                  플러그인 아키텍처로 기능 확장 가능
-                </p>
+                <h3 className="text-lg font-semibold text-white mb-2">{t("확장성")}</h3>
+                <p className="text-slate-400 mb-3">{t("플러그인 아키텍처로 기능 확장 가능")}</p>
                 <ul className="space-y-1 text-sm text-slate-400">
-                  <li>• 커스텀 번역 로더</li>
-                  <li>• 다양한 스토리지 백엔드</li>
-                  <li>• 플러그인 시스템</li>
-                  <li>• 커스텀 포맷터</li>
+                  <li>{t("• 커스텀 번역 로더")}</li>
+                  <li>{t("• 다양한 스토리지 백엔드")}</li>
+                  <li>{t("• 플러그인 시스템")}</li>
+                  <li>{t("• 커스텀 포맷터")}</li>
                 </ul>
               </div>
             </div>
@@ -156,7 +148,7 @@ export default function ArchitecturePage() {
 
         {/* Core Components */}
         <section className="bg-slate-900 rounded-xl border border-slate-800 p-8 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-6">핵심 컴포넌트</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">{t("핵심 컴포넌트")}</h2>
 
           <div className="space-y-6">
             {/* I18nProvider */}
@@ -166,34 +158,7 @@ export default function ArchitecturePage() {
               </h3>
               <div className="bg-slate-950 text-white p-4 rounded-lg">
                 <pre className="text-sm overflow-x-auto">
-                  {`export const I18nProvider: React.FC<I18nProviderProps> = ({
-  children,
-  languageManagerOptions,
-  translations = {},
-  onLanguageChange,
-}) => {
-  // 상태 관리
-  const [languageManager] = useState(
-    () => new LanguageManager(languageManagerOptions)
-  );
-  const [currentLanguage, setCurrentLanguage] = useState<string>(
-    languageManagerOptions?.defaultLanguage || "ko"
-  );
-  
-  // Context 값 구성
-  const contextValue: I18nContextType = {
-    currentLanguage,
-    changeLanguage,
-    availableLanguages: languageManager.getAvailableLanguages(),
-    translations,
-  };
-  
-  return (
-    <I18nContext.Provider value={contextValue}>
-      {children}
-    </I18nContext.Provider>
-  );
-};`}
+                  {t("export const I18nProvider: React.FC<I18nProviderProps> = ({\n  children,\n  languageManagerOptions,\n  translations = {},\n  onLanguageChange,\n}) => {\n  // 상태 관리\n  const [languageManager] = useState(\n    () => new LanguageManager(languageManagerOptions)\n  );\n  const [currentLanguage, setCurrentLanguage] = useState<string>(\n    languageManagerOptions?.defaultLanguage || \"ko\"\n  );\n  \n  // Context 값 구성\n  const contextValue: I18nContextType = {\n    currentLanguage,\n    changeLanguage,\n    availableLanguages: languageManager.getAvailableLanguages(),\n    translations,\n  };\n  \n  return (\n    <I18nContext.Provider value={contextValue}>\n      {children}\n    </I18nContext.Provider>\n  );\n};")}
                 </pre>
               </div>
             </div>
@@ -205,31 +170,7 @@ export default function ArchitecturePage() {
               </h3>
               <div className="bg-slate-950 text-white p-4 rounded-lg">
                 <pre className="text-sm overflow-x-auto">
-                  {`export class LanguageManager {
-  private currentLanguage: string;
-  
-  constructor(options: LanguageManagerOptions) {
-    this.currentLanguage = options.defaultLanguage || 'ko';
-    this.initialize();
-  }
-  
-  async setLanguage(lang: string): Promise<void> {
-    if (!this.isValidLanguage(lang)) {
-      throw new Error(\`지원하지 않는 언어: \${lang}\`);
-    }
-    
-    this.currentLanguage = lang;
-    await this.saveLanguageToCookie(lang);
-  }
-  
-  private async saveLanguageToCookie(lang: string): Promise<void> {
-    setCookie('i18nexus-language', lang, {
-      expires: 365,
-      path: '/',
-      sameSite: 'lax',
-    });
-  }
-}`}
+                  {t("export class LanguageManager {\n  private currentLanguage: string;\n  \n  constructor(options: LanguageManagerOptions) {\n    this.currentLanguage = options.defaultLanguage || 'ko';\n    this.initialize();\n  }\n  \n  async setLanguage(lang: string): Promise<void> {\n    if (!this.isValidLanguage(lang)) {\n      throw new Error(`지원하지 않는 언어: ${lang}`);\n    }\n    \n    this.currentLanguage = lang;\n    await this.saveLanguageToCookie(lang);\n  }\n  \n  private async saveLanguageToCookie(lang: string): Promise<void> {\n    setCookie('i18nexus-language', lang, {\n      expires: 365,\n      path: '/',\n      sameSite: 'lax',\n    });\n  }\n}")}
                 </pre>
               </div>
             </div>
@@ -238,7 +179,7 @@ export default function ArchitecturePage() {
 
         {/* Package Structure */}
         <section className="bg-slate-900 rounded-xl border border-slate-800 p-8">
-          <h2 className="text-2xl font-bold text-white mb-6">패키지 구조</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">{t("패키지 구조")}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-6">
               <div className="flex items-center mb-3">
@@ -246,9 +187,7 @@ export default function ArchitecturePage() {
                   i18nexus
                 </span>
               </div>
-              <p className="text-slate-300 mb-3">
-                클라이언트 라이브러리 (React 컴포넌트, 훅 등)
-              </p>
+              <p className="text-slate-300 mb-3">{t("클라이언트 라이브러리 (React 컴포넌트, 훅 등)")}</p>
               <ul className="space-y-1 text-sm text-slate-400">
                 <li>• I18nProvider</li>
                 <li>• useTranslation</li>
@@ -263,14 +202,12 @@ export default function ArchitecturePage() {
                   i18nexus-cli
                 </span>
               </div>
-              <p className="text-slate-300 mb-3">
-                개발 도구들 (코드 변환, 추출, 구글 시트 연동)
-              </p>
+              <p className="text-slate-300 mb-3">{t("개발 도구들 (코드 변환, 추출, 구글 시트 연동)")}</p>
               <ul className="space-y-1 text-sm text-slate-400">
-                <li>• pull - 번역 다운로드</li>
-                <li>• add-string - 문자열 추가</li>
-                <li>• import - JSON 가져오기</li>
-                <li>• listen - 실시간 업데이트</li>
+                <li>{t("• pull - 번역 다운로드")}</li>
+                <li>{t("• add-string - 문자열 추가")}</li>
+                <li>{t("• import - JSON 가져오기")}</li>
+                <li>{t("• listen - 실시간 업데이트")}</li>
               </ul>
             </div>
           </div>
@@ -283,6 +220,5 @@ export default function ArchitecturePage() {
           <p className="text-slate-500">Built with ❤️ by i18nexus Team</p>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 }
