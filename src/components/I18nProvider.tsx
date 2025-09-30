@@ -36,10 +36,10 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
   onLanguageChange,
 }) => {
   const [languageManager] = useState(
-    () => new LanguageManager(languageManagerOptions),
+    () => new LanguageManager(languageManagerOptions)
   );
   const [currentLanguage, setCurrentLanguage] = useState<string>(
-    languageManagerOptions?.defaultLanguage || "en",
+    languageManagerOptions?.defaultLanguage || "en"
   );
   const [isLoading, setIsLoading] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);

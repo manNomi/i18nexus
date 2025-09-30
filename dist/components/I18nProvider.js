@@ -7,7 +7,7 @@ const languageManager_1 = require("../utils/languageManager");
 const I18nContext = (0, react_1.createContext)(undefined);
 const I18nProvider = ({ children, languageManagerOptions, translations = {}, onLanguageChange, }) => {
     const [languageManager] = (0, react_1.useState)(() => new languageManager_1.LanguageManager(languageManagerOptions));
-    const [currentLanguage, setCurrentLanguage] = (0, react_1.useState)(languageManagerOptions?.defaultLanguage || 'en');
+    const [currentLanguage, setCurrentLanguage] = (0, react_1.useState)(languageManagerOptions?.defaultLanguage || "en");
     const [isLoading, setIsLoading] = (0, react_1.useState)(false);
     const [isHydrated, setIsHydrated] = (0, react_1.useState)(false);
     const changeLanguage = async (lang) => {
