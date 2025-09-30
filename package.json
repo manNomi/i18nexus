@@ -1,0 +1,36 @@
+{
+  "name": "i18nexus-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Complete React i18n toolkit with intelligent automation",
+  "workspaces": [
+    "packages/i18nexus",
+    "packages/i18nexus-cli",
+    "packages/i18nexus-demo"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "publish:core": "cd packages/i18nexus && npm publish",
+    "publish:cli": "cd packages/i18nexus-cli && npm publish",
+    "dev:demo": "cd packages/i18nexus-demo && npm run dev"
+  },
+  "keywords": [
+    "react",
+    "i18n",
+    "internationalization",
+    "translation",
+    "cli",
+    "automation",
+    "monorepo"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manNomi/i18nexus.git"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.0"
+  }
+}

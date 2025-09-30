@@ -1,0 +1,56 @@
+{
+  "name": "i18nexus-cli-tools",
+  "version": "2.2.0",
+  "description": "CLI tools for i18nexus - code transformation and Google Sheets integration",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "i18n-wrapper": "dist/bin/i18n-wrapper.js",
+    "i18n-sheets": "dist/bin/i18n-sheets.js",
+    "i18n-extractor": "dist/bin/i18n-extractor.js"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "scripts": {
+    "build": "tsc && npm run build:bins",
+    "build:bins": "chmod +x dist/bin/*.js",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.23.0",
+    "@babel/traverse": "^7.23.0",
+    "@babel/generator": "^7.23.0",
+    "@babel/types": "^7.23.0",
+    "glob": "^10.3.0",
+    "googleapis": "^126.0.0",
+    "google-auth-library": "^8.9.0",
+    "commander": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/babel__generator": "^7.6.0",
+    "@types/babel__traverse": "^7.20.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "i18n",
+    "cli",
+    "babel",
+    "google-sheets",
+    "code-transformation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/i18nexus.git",
+    "directory": "packages/cli"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/your-username/i18nexus/issues"
+  },
+  "homepage": "https://github.com/your-username/i18nexus#readme"
+}

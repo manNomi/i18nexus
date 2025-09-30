@@ -1,0 +1,23 @@
+{
+  "name": "i18nexus-monorepo",
+  "version": "2.0.0",
+  "description": "i18nexus modular i18n toolkit",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "clean": "npm run clean --workspaces",
+    "test": "npm run test --workspaces --if-present",
+    "publish:all": "npm run build && npm publish --workspaces --access public"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/i18nexus.git"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
