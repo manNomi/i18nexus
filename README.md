@@ -20,11 +20,11 @@
 
 This is a monorepo containing the following packages:
 
-| Package | Description | Version |
-|---------|-------------|---------|
-| [i18nexus](./packages/i18nexus) | Core React i18n library with SSR support | [![npm](https://img.shields.io/npm/v/i18nexus.svg)](https://www.npmjs.com/package/i18nexus) |
-| [i18nexus-tools](./packages/i18nexus-cli) | CLI tools for automation | [![npm](https://img.shields.io/npm/v/i18nexus-tools.svg)](https://www.npmjs.com/package/i18nexus-tools) |
-| [i18nexus-demo](./packages/i18nexus-demo) | Interactive demo application | - |
+| Package | Description | Version | Downloads |
+|---------|-------------|---------|-----------|
+| [i18nexus](https://www.npmjs.com/package/i18nexus) | Core React i18n library with SSR support | [![npm](https://img.shields.io/npm/v/i18nexus.svg)](https://www.npmjs.com/package/i18nexus) | [![Downloads](https://img.shields.io/npm/dw/i18nexus)](https://www.npmjs.com/package/i18nexus) |
+| [i18nexus-tools](https://www.npmjs.com/package/i18nexus-tools) | CLI tools for automation | [![npm](https://img.shields.io/npm/v/i18nexus-tools.svg)](https://www.npmjs.com/package/i18nexus-tools) | [![Downloads](https://img.shields.io/npm/dw/i18nexus-tools)](https://www.npmjs.com/package/i18nexus-tools) |
+| [Live Demo](https://i18nexus-demo.vercel.app/) | Interactive demo application | - | [![Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://i18nexus-demo.vercel.app/) |
 
 ---
 
@@ -229,18 +229,32 @@ npx i18n-download --spreadsheet-id "your-sheet-id"
 
 ## 🎯 Demo
 
-Try out i18nexus features in our interactive demo:
+Experience i18nexus in action with our live demo:
 
-```bash
-cd packages/i18nexus-demo
-npm install
-npm run dev
-```
+### 🌐 Live Demo
+**[🚀 Try i18nexus Demo →](https://i18nexus-demo.vercel.app/)**
 
-Visit `http://localhost:3000` to see:
+Features showcased:
 - **Live language switching** with cookie persistence
 - **Before/After examples** of automated transformations
 - **Interactive CLI demonstrations**
+- **Real-time t-wrapper demo GIF**
+
+### 📦 NPM Packages
+
+| Package | Downloads | Version | Size |
+|---------|-----------|---------|------|
+| [i18nexus](https://www.npmjs.com/package/i18nexus) | ![Weekly Downloads](https://img.shields.io/npm/dw/i18nexus) | ![Version](https://img.shields.io/npm/v/i18nexus) | ![Size](https://img.shields.io/bundlephobia/minzip/i18nexus) |
+| [i18nexus-tools](https://www.npmjs.com/package/i18nexus-tools) | ![Weekly Downloads](https://img.shields.io/npm/dw/i18nexus-tools) | ![Version](https://img.shields.io/npm/v/i18nexus-tools) | ![Size](https://img.shields.io/bundlephobia/minzip/i18nexus-tools) |
+
+**Current Stats:**
+- **Weekly Downloads**: 1,373+
+- **Version**: 2.0.6
+- **License**: MIT
+- **Unpacked Size**: 55.2 kB
+- **Total Files**: 27
+- **Issues**: 0
+- **Pull Requests**: 0
 
 ---
 
