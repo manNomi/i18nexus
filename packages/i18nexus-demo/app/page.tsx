@@ -2,266 +2,162 @@
 
 import { useTranslation } from "i18nexus";
 import Link from "next/link";
-
+import Image from "next/image";
 export default function HomePage() {
-  const { t } = useTranslation();
-
-  return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  const {
+    t
+  } = useTranslation();
+  return <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       {/* Hero Section */}
       <div className="text-center mb-24">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 rounded-3xl mb-8 shadow-lg shadow-blue-500/50">
+        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 rounded-3xl mb-8 shadow-2xl shadow-blue-500/50">
           <span className="text-white font-bold text-3xl">i18</span>
         </div>
-        <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-600 mb-6 leading-tight">
+        <h1 className="text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-600 mb-6 leading-tight">
           i18nexus
         </h1>
-        <p className="text-2xl md:text-3xl text-slate-300 mb-4 font-light">
-          {t("Complete React i18n Toolkit")}
-        </p>
-        <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
-          {t("Automate your internationalization workflow with intelligent tools")}
-        </p>
+        <p className="text-2xl md:text-3xl text-slate-300 mb-4 font-light">{t("완전한 React i18n 자동화 툴킷")}</p>
+        <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed mb-10">{t("하드코딩된 한국어를 자동으로 감지하여 t() 함수로 래핑하고, 번역 파일을\n          관리하는 완전 자동화된 국제화 솔루션입니다.")}</p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link href="/quickstart" className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105">{t("빠른 시작 →")}</Link>
+          <Link href="/detail" className="px-8 py-4 border-2 border-slate-600 text-slate-300 rounded-xl font-semibold hover:bg-slate-800 hover:border-slate-500 transition-all">{t("상세 설명")}</Link>
+        </div>
       </div>
 
-      {/* Feature Cards */}
-      <div className="grid md:grid-cols-2 gap-8 mb-20">
-        <Link
-          href="/provider"
-          className="group relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 hover:border-blue-500 p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 hover:-translate-y-1"
-        >
-          <div className="absolute top-4 right-4 w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
-            <span className="text-3xl">🎨</span>
-          </div>
-          <h2 className="text-2xl font-bold text-white mb-3">
-            {t("I18nProvider")}
-          </h2>
-          <p className="text-slate-400 mb-6 leading-relaxed">
-            {t("React Context provider with cookie-based language persistence and SSR support")}
-          </p>
-          <div className="space-y-2">
-            <div className="flex items-center text-sm text-slate-300">
-              <span className="text-green-400 mr-2">✓</span>
-              {t("Cookie-based persistence")}
-            </div>
-            <div className="flex items-center text-sm text-slate-300">
-              <span className="text-green-400 mr-2">✓</span>
-              {t("Zero hydration mismatch")}
-            </div>
-            <div className="flex items-center text-sm text-slate-300">
-              <span className="text-green-400 mr-2">✓</span>
-              {t("TypeScript support")}
-            </div>
-          </div>
-          <div className="mt-6 inline-flex items-center text-blue-400 font-medium group-hover:text-blue-300">
-            {t("Learn more")} <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-          </div>
-        </Link>
-
-        <Link
-          href="/cli"
-          className="group relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 hover:border-indigo-500 p-8 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-1"
-        >
-          <div className="absolute top-4 right-4 w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center group-hover:bg-indigo-500/20 transition-colors">
-            <span className="text-3xl">⚡</span>
-          </div>
-          <h2 className="text-2xl font-bold text-white mb-3">
-            {t("CLI Tools")}
-          </h2>
-          <p className="text-slate-400 mb-6 leading-relaxed">
-            {t("Powerful automation tools for wrapping text and managing translations")}
-          </p>
-          <div className="space-y-2">
-            <div className="flex items-center text-sm text-slate-300">
-              <span className="text-green-400 mr-2">✓</span>
-              {t("Auto wrap Korean text")}
-            </div>
-            <div className="flex items-center text-sm text-slate-300">
-              <span className="text-green-400 mr-2">✓</span>
-              {t("Extract translation keys")}
-            </div>
-            <div className="flex items-center text-sm text-slate-300">
-              <span className="text-green-400 mr-2">✓</span>
-              {t("Google Sheets sync")}
-            </div>
-          </div>
-          <div className="mt-6 inline-flex items-center text-indigo-400 font-medium group-hover:text-indigo-300">
-            {t("Learn more")} <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-          </div>
-        </Link>
-      </div>
-
-      {/* Quick Start Section */}
-      <section className="bg-gradient-to-br from-blue-950/50 to-indigo-950/50 rounded-2xl border border-blue-800/50 p-10 mb-20">
-        <div className="flex items-center mb-8">
-          <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg shadow-blue-500/30">
-            <span className="text-white font-bold text-2xl">🚀</span>
-          </div>
-          <h2 className="text-3xl font-bold text-white">{t("Quick Start")}</h2>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-slate-900/80 rounded-xl p-6 border border-slate-800">
-            <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-blue-400 font-bold">1</span>
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">
-              {t("Install")}
-            </h3>
-            <pre className="bg-slate-950 text-slate-300 p-3 rounded-lg text-xs overflow-x-auto">
-              <code>npm install i18nexus</code>
-            </pre>
-          </div>
-
-          <div className="bg-slate-900/80 rounded-xl p-6 border border-slate-800">
-            <div className="w-10 h-10 bg-indigo-500/20 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-indigo-400 font-bold">2</span>
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">
-              {t("Setup Provider")}
-            </h3>
-            <p className="text-sm text-slate-400">
-              {t("Add I18nProvider to layout.tsx")}
-            </p>
-          </div>
-
-          <div className="bg-slate-900/80 rounded-xl p-6 border border-slate-800">
-            <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-purple-400 font-bold">3</span>
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">
-              {t("Use Hooks")}
-            </h3>
-            <p className="text-sm text-slate-400">
-              {t("Use useTranslation() in components")}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Why i18nexus Section */}
+      {/* Before/After Code Transformation */}
       <section className="mb-20">
-        <h2 className="text-3xl font-bold text-white mb-10 text-center">
-          {t("Why i18nexus?")}
-        </h2>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-white mb-4">{t("자동 코드 변환의 힘")}</h2>
+          <p className="text-slate-400 text-lg">{t("한 줄의 명령어로 모든 한국어 텍스트를 자동 변환")}</p>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-slate-900 rounded-2xl border border-red-900/50 p-8">
-            <h3 className="text-xl font-semibold text-red-400 mb-6 flex items-center">
-              <span className="mr-2">❌</span>
-              {t("Traditional i18n Problems")}
-            </h3>
-            <ul className="space-y-3 text-slate-300">
-              <li className="flex items-start">
-                <span className="text-red-500 mr-3 mt-0.5">•</span>
-                <span>{t("Manual text wrapping")}</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-500 mr-3 mt-0.5">•</span>
-                <span>{t("Hydration issues in SSR")}</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-500 mr-3 mt-0.5">•</span>
-                <span>{t("Complex configuration")}</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-500 mr-3 mt-0.5">•</span>
-                <span>{t("Manual file management")}</span>
-              </li>
-            </ul>
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
+          {/* Before */}
+          <div className="bg-slate-900 rounded-2xl border border-red-900/50 overflow-hidden">
+            <div className="bg-gradient-to-r from-red-900/50 to-transparent px-6 py-4 border-b border-red-900/50">
+              <div className="flex items-center">
+                <span className="text-2xl mr-3">❌</span>
+                <h3 className="text-xl font-semibold text-red-300">{t("변환 전")}</h3>
+              </div>
+            </div>
+            <div className="p-6">
+              <pre className="bg-slate-950 text-slate-300 p-6 rounded-xl text-sm border border-slate-800 overflow-x-auto">
+                <code>{t("export default function Welcome() {\n  return (\n    <div>\n      <h1>환영합니다</h1>\n      <p>i18nexus 사용법을 알아보세요</p>\n      <button>시작하기</button>\n    </div>\n  );\n}")}</code>
+              </pre>
+            </div>
           </div>
 
-          <div className="bg-slate-900 rounded-2xl border border-green-900/50 p-8">
-            <h3 className="text-xl font-semibold text-green-400 mb-6 flex items-center">
-              <span className="mr-2">✅</span>
-              {t("i18nexus Solutions")}
-            </h3>
-            <ul className="space-y-3 text-slate-300">
-              <li className="flex items-start">
-                <span className="text-green-500 mr-3 mt-0.5">•</span>
-                <span>{t("Automatic text wrapping with CLI")}</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-3 mt-0.5">•</span>
-                <span>{t("Zero hydration issues")}</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-3 mt-0.5">•</span>
-                <span>{t("Simple setup with defaults")}</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-3 mt-0.5">•</span>
-                <span>{t("Smart file merging")}</span>
-              </li>
-            </ul>
+          {/* After */}
+          <div className="bg-slate-900 rounded-2xl border border-green-900/50 overflow-hidden">
+            <div className="bg-gradient-to-r from-green-900/50 to-transparent px-6 py-4 border-b border-green-900/50">
+              <div className="flex items-center">
+                <span className="text-2xl mr-3">✅</span>
+                <h3 className="text-xl font-semibold text-green-300">{t("변환 후")}</h3>
+              </div>
+            </div>
+            <div className="p-6">
+              <pre className="bg-slate-950 text-slate-300 p-6 rounded-xl text-sm border border-slate-800 overflow-x-auto">
+                <code>{t("import { useTranslation } from \"i18nexus\";\n\nexport default function Welcome() {\n  const { t } = useTranslation();\n  return (\n    <div>\n      <h1>{t(\"환영합니다\")}</h1>\n      <p>{t(\"i18nexus 사용법을 알아보세요\")}</p>\n      <button>{t(\"시작하기\")}</button>\n    </div>\n  );\n}")}</code>
+              </pre>
+            </div>
+          </div>
+        </div>
+
+        {/* Command */}
+        <div className="text-center">
+          <div className="inline-block bg-gradient-to-r from-blue-950/50 to-indigo-950/50 border-2 border-blue-800/50 rounded-xl px-8 py-4">
+            <p className="text-slate-400 mb-2 text-sm">{t("실행 명령어")}</p>
+            <code className="text-blue-300 text-lg font-mono font-semibold">
+              npx i18n-wrapper --pattern "app/**/*.tsx"
+            </code>
           </div>
         </div>
       </section>
 
-      {/* Project Structure Section */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 p-10">
-        <div className="flex items-center mb-8">
-          <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg shadow-purple-500/30">
-            <span className="text-white font-bold text-2xl">📁</span>
+      {/* Live Demo GIF */}
+      <section className="mb-20">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-white mb-4">{t("실제 동작 모습")}</h2>
+          <p className="text-slate-400 text-lg">{t("t-wrapper가 실시간으로 코드를 변환하는 과정")}</p>
+        </div>
+
+        <div className="bg-slate-900 rounded-2xl border border-slate-700 p-8">
+          <div className="bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+            {/* GIF Placeholder - 실제 GIF로 교체하세요 */}
+            <div className="aspect-video bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-6xl mb-4">🎬</div>
+                <p className="text-slate-400 text-lg">{t("t-wrapper 실행 데모 GIF")}</p>
+                <p className="text-slate-500 text-sm mt-2">{t("(여기에 실제 GIF가 들어갑니다)")}</p>
+              </div>
+            </div>
           </div>
-          <h2 className="text-3xl font-bold text-white">
-            {t("Recommended Structure")}
-          </h2>
+          <p className="text-slate-400 text-center mt-4 text-sm">{t("💡 자동으로 import 추가 → useTranslation 훅 주입 → 한국어 텍스트 래핑")}</p>
         </div>
+      </section>
 
-        <p className="text-slate-300 mb-6 text-lg">
-          {t("This demo follows the recommended Next.js App Router structure:")}
-        </p>
+      {/* Quick Navigation Cards */}
+      <section className="mb-20">
+        <h2 className="text-3xl font-bold text-white mb-10 text-center">{t("기능별 상세 가이드")}</h2>
 
-        <div className="bg-slate-950 rounded-xl p-6 mb-8 border border-slate-800">
-          <pre className="text-slate-300 text-sm font-mono">
-            <code>{`app/
-├── layout.tsx          # I18nProvider setup (server)
-├── page.tsx            # useTranslation() (client)
-├── provider/
-│   └── page.tsx        # Provider documentation
-├── cli/
-│   └── page.tsx        # CLI tools documentation
-└── components/
-    └── Header.tsx      # Language switcher component
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Link href="/quickstart" className="group bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 hover:border-blue-500 p-6 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 hover:-translate-y-1">
+            <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-green-500/30 group-hover:scale-110 transition-transform">
+              <span className="text-3xl">🚀</span>
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">{t("빠른 시작")}</h3>
+            <p className="text-slate-400 text-sm">{t("3분 안에 프로젝트에 적용하기")}</p>
+          </Link>
 
-lib/
-└── translations/
-    ├── en.json         # English translations
-    └── ko.json         # Korean translations`}</code>
-          </pre>
+          <Link href="/tool" className="group bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 hover:border-indigo-500 p-6 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-1">
+            <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition-transform">
+              <span className="text-3xl">⚡</span>
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">{t("CLI 도구")}</h3>
+            <p className="text-slate-400 text-sm">{t("자동화 도구 사용법")}</p>
+          </Link>
+
+          <Link href="/provider" className="group bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 hover:border-purple-500 p-6 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 hover:-translate-y-1">
+            <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
+              <span className="text-3xl">🎨</span>
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Provider</h3>
+            <p className="text-slate-400 text-sm">{t("React Context 설정")}</p>
+          </Link>
+
+          <Link href="/detail" className="group bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 hover:border-pink-500 p-6 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/20 hover:-translate-y-1">
+            <div className="w-14 h-14 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-pink-500/30 group-hover:scale-110 transition-transform">
+              <span className="text-3xl">📚</span>
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">{t("상세 설명")}</h3>
+            <p className="text-slate-400 text-sm">{t("구조와 동작 원리")}</p>
+          </Link>
         </div>
+      </section>
+
+      {/* Why i18nexus */}
+      <section className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 p-10">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">{t("왜 i18nexus인가?")}</h2>
 
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-blue-950/30 border border-blue-800/50 rounded-xl p-6">
-            <h4 className="font-semibold text-blue-300 mb-2 flex items-center">
-              <span className="mr-2">🔧</span>
-              {t("Server Components")}
-            </h4>
-            <p className="text-slate-400 text-sm">
-              {t("Setup I18nProvider in layout.tsx with cookie detection")}
-            </p>
+          <div className="bg-gradient-to-br from-blue-950/50 to-blue-900/30 border border-blue-800/50 rounded-xl p-6">
+            <div className="text-4xl mb-4">⚡</div>
+            <h3 className="text-xl font-semibold text-blue-300 mb-3">{t("자동화 우선")}</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">{t("수동으로 하나하나 t() 함수를 추가할 필요 없이, CLI 도구가 자동으로 모든 한국어 텍스트를 감지하고 변환합니다.")}</p>
           </div>
-          <div className="bg-indigo-950/30 border border-indigo-800/50 rounded-xl p-6">
-            <h4 className="font-semibold text-indigo-300 mb-2 flex items-center">
-              <span className="mr-2">⚡</span>
-              {t("Client Components")}
-            </h4>
-            <p className="text-slate-400 text-sm">
-              {t("Use 'use client' with useTranslation() hook")}
-            </p>
+
+          <div className="bg-gradient-to-br from-indigo-950/50 to-indigo-900/30 border border-indigo-800/50 rounded-xl p-6">
+            <div className="text-4xl mb-4">🔄</div>
+            <h3 className="text-xl font-semibold text-indigo-300 mb-3">{t("완벽한 SSR 지원")}</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">{t("Next.js App Router와 완벽하게 통합되어 하이드레이션 문제가 전혀 없습니다. 쿠키 기반 언어 관리로 첫 렌더링부터 올바른 언어를 표시합니다.")}</p>
           </div>
-          <div className="bg-purple-950/30 border border-purple-800/50 rounded-xl p-6">
-            <h4 className="font-semibold text-purple-300 mb-2 flex items-center">
-              <span className="mr-2">📄</span>
-              {t("Translation Files")}
-            </h4>
-            <p className="text-slate-400 text-sm">
-              {t("Store in lib/translations/ as JSON")}
-            </p>
+
+          <div className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 border border-purple-800/50 rounded-xl p-6">
+            <div className="text-4xl mb-4">🎯</div>
+            <h3 className="text-xl font-semibold text-purple-300 mb-3">{t("개발자 친화적")}</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">{t("복잡한 설정 없이 바로 시작할 수 있습니다. TypeScript 완벽 지원으로 타입 안전성을 보장하며, 직관적인 API를 제공합니다.")}</p>
           </div>
         </div>
       </section>
-    </main>
-  );
+    </main>;
 }

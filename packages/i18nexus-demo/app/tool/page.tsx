@@ -1,12 +1,11 @@
 "use client";
 
 import { useTranslation } from "i18nexus";
-
 export default function CLIPage() {
-  const { t } = useTranslation();
-
-  return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  const {
+    t
+  } = useTranslation();
+  return <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="mb-12">
         <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-6 shadow-lg shadow-indigo-500/30">
@@ -66,14 +65,7 @@ npx i18n-wrapper --pattern "app/page.tsx"`}</code>
                 <h4 className="font-semibold text-white">{t("Before")}</h4>
               </div>
               <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg text-sm border border-slate-800">
-                <code>{`export default function Welcome() {
-  return (
-    <div>
-      <h1>환영합니다</h1>
-      <p>i18nexus 사용법</p>
-    </div>
-  );
-}`}</code>
+                <code>{t("export default function Welcome() {\n  return (\n    <div>\n      <h1>환영합니다</h1>\n      <p>i18nexus 사용법</p>\n    </div>\n  );\n}")}</code>
               </pre>
             </div>
 
@@ -83,17 +75,7 @@ npx i18n-wrapper --pattern "app/page.tsx"`}</code>
                 <h4 className="font-semibold text-white">{t("After")}</h4>
               </div>
               <pre className="bg-slate-950 text-slate-300 p-4 rounded-lg text-sm border border-slate-800">
-                <code>{`import { useTranslation } from "i18nexus";
-
-export default function Welcome() {
-  const { t } = useTranslation();
-  return (
-    <div>
-      <h1>{t("환영합니다")}</h1>
-      <p>{t("i18nexus 사용법")}</p>
-    </div>
-  );
-}`}</code>
+                <code>{t("import { useTranslation } from \"i18nexus\";\n\nexport default function Welcome() {\n  const { t } = useTranslation();\n  return (\n    <div>\n      <h1>{t(\"환영합니다\")}</h1>\n      <p>{t(\"i18nexus 사용법\")}</p>\n    </div>\n  );\n}")}</code>
               </pre>
             </div>
           </div>
@@ -304,11 +286,7 @@ npx i18n-extractor --dry-run`}</code>
                 {t("Add English translations to en.json file")}
               </p>
               <pre className="bg-slate-950 text-slate-300 p-3 rounded-lg text-xs border border-slate-800">
-                <code>{`// lib/translations/en.json
-{
-  "환영합니다": "Welcome",
-  "시작하기": "Get Started"
-}`}</code>
+                <code>{t("// lib/translations/en.json\n{\n  \"환영합니다\": \"Welcome\",\n  \"시작하기\": \"Get Started\"\n}")}</code>
               </pre>
             </div>
           </div>
@@ -347,6 +325,5 @@ npx i18n-extractor --dry-run`}</code>
           </div>
         </div>
       </section>
-    </main>
-  );
+    </main>;
 }
