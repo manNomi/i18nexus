@@ -20,11 +20,11 @@
 
 This is a monorepo containing the following packages:
 
-| Package | Description | Version | Downloads |
-|---------|-------------|---------|-----------|
-| [i18nexus](https://www.npmjs.com/package/i18nexus) | Core React i18n library with SSR support | [![npm](https://img.shields.io/npm/v/i18nexus.svg)](https://www.npmjs.com/package/i18nexus) | [![Downloads](https://img.shields.io/npm/dw/i18nexus)](https://www.npmjs.com/package/i18nexus) |
-| [i18nexus-tools](https://www.npmjs.com/package/i18nexus-tools) | CLI tools for automation | [![npm](https://img.shields.io/npm/v/i18nexus-tools.svg)](https://www.npmjs.com/package/i18nexus-tools) | [![Downloads](https://img.shields.io/npm/dw/i18nexus-tools)](https://www.npmjs.com/package/i18nexus-tools) |
-| [Live Demo](https://i18nexus-demo.vercel.app/) | Interactive demo application | - | [![Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://i18nexus-demo.vercel.app/) |
+| Package                                                        | Description                              | Version                                                                                                 | Downloads                                                                                                  |
+| -------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| [i18nexus](https://www.npmjs.com/package/i18nexus)             | Core React i18n library with SSR support | [![npm](https://img.shields.io/npm/v/i18nexus.svg)](https://www.npmjs.com/package/i18nexus)             | [![Downloads](https://img.shields.io/npm/dw/i18nexus)](https://www.npmjs.com/package/i18nexus)             |
+| [i18nexus-tools](https://www.npmjs.com/package/i18nexus-tools) | CLI tools for automation                 | [![npm](https://img.shields.io/npm/v/i18nexus-tools.svg)](https://www.npmjs.com/package/i18nexus-tools) | [![Downloads](https://img.shields.io/npm/dw/i18nexus-tools)](https://www.npmjs.com/package/i18nexus-tools) |
+| [Live Demo](https://i18nexus-demo.vercel.app/)                 | Interactive demo application             | -                                                                                                       | [![Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://i18nexus-demo.vercel.app/)           |
 
 ---
 
@@ -35,12 +35,14 @@ i18nexus is a comprehensive React internationalization toolkit that **automates 
 ### 🎯 Why i18nexus?
 
 Traditional i18n libraries require manual work:
+
 - ❌ Manually wrap every text with `t()` functions
 - ❌ Extract translation keys by hand
 - ❌ Manage translation files across multiple languages
 - ❌ Coordinate with translators via spreadsheets
 
 **i18nexus automates all of this:**
+
 - ✅ Automatically detects and wraps Korean text
 - ✅ Extracts translation keys automatically
 - ✅ Syncs with Google Sheets seamlessly
@@ -52,16 +54,19 @@ Traditional i18n libraries require manual work:
 ## ✨ Features
 
 ### 🔧 **Automated Code Transformation**
+
 - **Smart text detection**: Automatically finds Korean strings in your JSX
 - **Intelligent wrapping**: Adds `t()` calls without breaking your code
 - **Auto-import management**: Adds necessary imports automatically
 
 ### 📝 **Translation Management**
+
 - **Key extraction**: Generates translation files from your code
 - **Google Sheets sync**: Two-way sync with translators
 - **Multiple formats**: JSON, CSV export options
 
 ### 🌐 **React Integration**
+
 - **Cookie persistence**: Language choice survives page refreshes
 - **SSR ready**: Works perfectly with Next.js App Router
 - **Zero hydration issues**: Correct language on first render
@@ -107,8 +112,7 @@ export default function RootLayout({ children }) {
           translations={{
             ko: { welcome: "환영합니다" },
             en: { welcome: "Welcome" },
-          }}
-        >
+          }}>
           {children}
         </I18nProvider>
       </body>
@@ -160,6 +164,7 @@ npx i18n-wrapper --dry-run
 ```
 
 **What it does:**
+
 - ✅ Detects hardcoded Korean strings in JSX
 - ✅ Wraps them with `t('key')` functions
 - ✅ Automatically adds `useTranslation` imports and hooks
@@ -232,9 +237,11 @@ npx i18n-download --spreadsheet-id "your-sheet-id"
 Experience i18nexus in action with our live demo:
 
 ### 🌐 Live Demo
+
 **[🚀 Try i18nexus Demo →](https://i18nexus-demo.vercel.app/)**
 
 Features showcased:
+
 - **Live language switching** with cookie persistence
 - **Before/After examples** of automated transformations
 - **Interactive CLI demonstrations**
@@ -242,12 +249,13 @@ Features showcased:
 
 ### 📦 NPM Packages
 
-| Package | Downloads | Version | Size |
-|---------|-----------|---------|------|
-| [i18nexus](https://www.npmjs.com/package/i18nexus) | ![Weekly Downloads](https://img.shields.io/npm/dw/i18nexus) | ![Version](https://img.shields.io/npm/v/i18nexus) | ![Size](https://img.shields.io/bundlephobia/minzip/i18nexus) |
+| Package                                                        | Downloads                                                         | Version                                                 | Size                                                               |
+| -------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------ |
+| [i18nexus](https://www.npmjs.com/package/i18nexus)             | ![Weekly Downloads](https://img.shields.io/npm/dw/i18nexus)       | ![Version](https://img.shields.io/npm/v/i18nexus)       | ![Size](https://img.shields.io/bundlephobia/minzip/i18nexus)       |
 | [i18nexus-tools](https://www.npmjs.com/package/i18nexus-tools) | ![Weekly Downloads](https://img.shields.io/npm/dw/i18nexus-tools) | ![Version](https://img.shields.io/npm/v/i18nexus-tools) | ![Size](https://img.shields.io/bundlephobia/minzip/i18nexus-tools) |
 
 **Current Stats:**
+
 - **Weekly Downloads**: 1,373+
 - **Version**: 2.0.6
 - **License**: MIT
@@ -284,11 +292,8 @@ const { t } = useTranslation();
 #### `useLanguageSwitcher()`
 
 ```tsx
-const {
-  currentLanguage,
-  changeLanguage,
-  availableLanguages,
-} = useLanguageSwitcher();
+const { currentLanguage, changeLanguage, availableLanguages } =
+  useLanguageSwitcher();
 ```
 
 ### CLI Tools
@@ -365,8 +370,8 @@ MIT License - see the [LICENSE](./LICENSE) file for details.
 
 **Made with ❤️ by the i18nexus team**
 
-⭐ [Star us on GitHub](https://github.com/manNomi/i18nexus) • 
-🐛 [Report Issues](https://github.com/manNomi/i18nexus/issues) • 
+⭐ [Star us on GitHub](https://github.com/manNomi/i18nexus) •
+🐛 [Report Issues](https://github.com/manNomi/i18nexus/issues) •
 💬 [Discussions](https://github.com/manNomi/i18nexus/discussions)
 
 </div>
