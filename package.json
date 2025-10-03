@@ -1,36 +1,34 @@
 {
-  "name": "i18nexus-monorepo",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Complete React i18n toolkit with intelligent automation",
-  "workspaces": [
-    "packages/i18nexus",
-    "packages/i18nexus-cli",
-    "packages/i18nexus-demo"
-  ],
+  "name": "i18nexus",
+  "version": "2.1.0",
+  "description": "Complete React i18n toolkit with cookie-based language management and SSR support",
+  "main": "i18n/dist/index.js",
+  "types": "i18n/dist/index.d.ts",
   "scripts": {
-    "build": "npm run build --workspaces",
-    "test": "npm run test --workspaces",
-    "publish:core": "cd packages/i18nexus && npm publish",
-    "publish:cli": "cd packages/i18nexus-cli && npm publish",
-    "dev:demo": "cd packages/i18nexus-demo && npm run dev"
+    "build": "cd i18n && npm run build",
+    "dev:demo": "cd i18n/demo && npm run dev",
+    "test": "cd i18n && npm test",
+    "publish:npm": "cd i18n && npm publish"
   },
   "keywords": [
     "react",
     "i18n",
     "internationalization",
     "translation",
-    "cli",
-    "automation",
-    "monorepo"
+    "nextjs",
+    "ssr",
+    "cookie",
+    "typescript",
+    "korean"
   ],
-  "author": "Your Name",
+  "author": "manNomi <hanmw110@naver.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/manNomi/i18nexus.git"
   },
-  "devDependencies": {
-    "typescript": "^5.2.0"
-  }
+  "bugs": {
+    "url": "https://github.com/manNomi/i18nexus/issues"
+  },
+  "homepage": "https://github.com/manNomi/i18nexus#readme"
 }
