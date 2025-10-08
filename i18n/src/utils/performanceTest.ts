@@ -19,7 +19,7 @@ export class TranslationPerformanceTester {
   testTranslationFunction(
     translateFn: (key: string) => string,
     testKeys: string[],
-    iterations: number = 10000
+    iterations: number = 10000,
   ): PerformanceTestResult {
     const startTime = performance.now();
     const startMemory = this.getMemoryUsage();
@@ -56,7 +56,7 @@ export class TranslationPerformanceTester {
     fn1: (key: string) => string,
     fn2: (key: string) => string,
     testKeys: string[],
-    iterations: number = 10000
+    iterations: number = 10000,
   ) {
     const result1 = this.testTranslationFunction(fn1, testKeys, iterations);
     const result2 = this.testTranslationFunction(fn2, testKeys, iterations);
@@ -110,14 +110,14 @@ export class TranslationPerformanceTester {
       console.log(`\n📊 Test ${index + 1}: ${result.functionName}`);
       console.log(`⏱️  Total Time: ${result.totalTime.toFixed(2)}ms`);
       console.log(
-        `⚡ Average Time: ${result.averageTime.toFixed(4)}ms per call`
+        `⚡ Average Time: ${result.averageTime.toFixed(4)}ms per call`,
       );
       console.log(
-        `🔥 Calls Per Second: ${Math.round(result.callsPerSecond).toLocaleString()}`
+        `🔥 Calls Per Second: ${Math.round(result.callsPerSecond).toLocaleString()}`,
       );
       if (result.memoryUsage) {
         console.log(
-          `💾 Memory Usage: ${(result.memoryUsage / 1024).toFixed(2)}KB`
+          `💾 Memory Usage: ${(result.memoryUsage / 1024).toFixed(2)}KB`,
         );
       }
     });
@@ -132,18 +132,18 @@ export class TranslationPerformanceTester {
 export const quickPerformanceTest = (
   translateFn: (key: string) => string,
   testKeys: string[] = ["welcome", "hello", "goodbye", "thank you", "please"],
-  iterations: number = 10000
+  iterations: number = 10000,
 ) => {
   const tester = new TranslationPerformanceTester();
   const result = tester.testTranslationFunction(
     translateFn,
     testKeys,
-    iterations
+    iterations,
   );
 
   console.log("🚀 Quick Performance Test Result:");
   console.log(
-    `⚡ ${Math.round(result.callsPerSecond).toLocaleString()} calls/second`
+    `⚡ ${Math.round(result.callsPerSecond).toLocaleString()} calls/second`,
   );
   console.log(`⏱️  ${result.averageTime.toFixed(4)}ms per call`);
 
@@ -157,7 +157,7 @@ export const compareSSRClientPerformance = async (
   ssrTranslator: (key: string) => string,
   clientTranslator: (key: string) => string,
   testKeys: string[] = ["welcome", "hello", "goodbye", "thank you", "please"],
-  iterations: number = 10000
+  iterations: number = 10000,
 ) => {
   console.log("🔄 Comparing SSR vs Client Performance...");
 
@@ -167,14 +167,14 @@ export const compareSSRClientPerformance = async (
   const ssrResult = tester.testTranslationFunction(
     ssrTranslator,
     testKeys,
-    iterations
+    iterations,
   );
 
   // Client 성능 테스트
   const clientResult = tester.testTranslationFunction(
     clientTranslator,
     testKeys,
-    iterations
+    iterations,
   );
 
   const comparison = {
@@ -194,13 +194,13 @@ export const compareSSRClientPerformance = async (
 
   console.log("📊 SSR vs Client Performance Comparison:");
   console.log(
-    `SSR: ${Math.round(ssrResult.callsPerSecond).toLocaleString()} calls/sec`
+    `SSR: ${Math.round(ssrResult.callsPerSecond).toLocaleString()} calls/sec`,
   );
   console.log(
-    `Client: ${Math.round(clientResult.callsPerSecond).toLocaleString()} calls/sec`
+    `Client: ${Math.round(clientResult.callsPerSecond).toLocaleString()} calls/sec`,
   );
   console.log(
-    `Improvement: ${comparison.improvement.speedImprovement.toFixed(1)}%`
+    `Improvement: ${comparison.improvement.speedImprovement.toFixed(1)}%`,
   );
 
   return comparison;
@@ -212,7 +212,7 @@ export const compareSSRClientPerformance = async (
 export const memoryUsageTest = (
   translateFn: (key: string) => string,
   testKeys: string[],
-  iterations: number = 10000
+  iterations: number = 10000,
 ) => {
   if (typeof window === "undefined" || !("memory" in performance)) {
     console.warn("Memory usage test only available in browser environment");
@@ -250,7 +250,7 @@ export const memoryUsageTest = (
 export const cacheEfficiencyTest = (
   translateFn: (key: string) => string,
   testKeys: string[],
-  iterations: number = 10000
+  iterations: number = 10000,
 ) => {
   const startTime = performance.now();
 

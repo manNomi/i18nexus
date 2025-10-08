@@ -17,7 +17,7 @@ export const useTranslation = () => {
       // 빠른 접근을 위한 직접 참조
       return currentTranslations[key] || key;
     },
-    [currentTranslations]
+    [currentTranslations],
   );
 
   return {

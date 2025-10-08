@@ -3,17 +3,6 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { I18nProvider, useI18nContext } from "../components/I18nProvider";
 
-// Mock react-i18next
-jest.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-    i18n: {
-      changeLanguage: jest.fn(),
-      language: "en",
-    },
-  }),
-}));
-
 // Mock cookie utilities
 jest.mock("../utils/cookie", () => ({
   getCookie: jest.fn(),

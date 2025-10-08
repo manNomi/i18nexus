@@ -133,7 +133,7 @@ export const useTranslationOptimized = () => {
 
       return translation;
     },
-    [currentTranslations, currentLanguage]
+    [currentTranslations, currentLanguage],
   );
 
   // 성능 통계 반환
@@ -188,7 +188,7 @@ export const useBatchTranslation = () => {
     (keys: string[]) => {
       return keys.map((key) => currentTranslations[key] || key);
     },
-    [currentTranslations]
+    [currentTranslations],
   );
 
   return {
@@ -211,7 +211,7 @@ export const useLazyTranslation = () => {
       const currentTranslations = translations[currentLanguage] || {};
       return currentTranslations[key] || key;
     },
-    [currentLanguage, translations]
+    [currentLanguage, translations],
   );
 
   return {
@@ -250,7 +250,7 @@ export const useTranslationWithMonitoring = () => {
 
       return result;
     },
-    [currentTranslations]
+    [currentTranslations],
   );
 
   return {

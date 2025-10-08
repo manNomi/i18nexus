@@ -39,14 +39,14 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
   initialLanguage,
 }) => {
   const [languageManager] = React.useState(
-    () => new LanguageManager(languageManagerOptions)
+    () => new LanguageManager(languageManagerOptions),
   );
 
   // 번역 데이터를 전역에 등록 (서버 컴포넌트에서 사용 가능하도록)
   React.useEffect(() => {
     registerTranslations(
       translations,
-      languageManagerOptions?.defaultLanguage || "en"
+      languageManagerOptions?.defaultLanguage || "en",
     );
   }, [translations, languageManagerOptions?.defaultLanguage]);
 

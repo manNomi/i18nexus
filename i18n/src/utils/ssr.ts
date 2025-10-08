@@ -40,7 +40,7 @@ export async function getServerTranslation(
   options?: {
     cookieName?: string;
     defaultLanguage?: string;
-  }
+  },
 ) {
   const cookieName = options?.cookieName || "i18n-language";
   const defaultLanguage = options?.defaultLanguage || "en";
@@ -50,6 +50,7 @@ export async function getServerTranslation(
 
   if (typeof window === "undefined") {
     try {
+      // @ts-expect-error - next/headers is an optional peer dependency
       const { cookies } = await import("next/headers");
       const cookieStore = await cookies();
       const langCookie = cookieStore.get(cookieName);
@@ -58,7 +59,7 @@ export async function getServerTranslation(
       // Next.js가 아니거나 cookies를 사용할 수 없는 경우 기본 언어 사용
       console.warn(
         "⚠️  i18nexus: Unable to access cookies. Using default language:",
-        defaultLanguage
+        defaultLanguage,
       );
     }
   }
@@ -104,10 +105,11 @@ export async function getServerTranslation(
  */
 export async function getCurrentLanguage(
   cookieName: string = "i18n-language",
-  defaultLanguage: string = "en"
+  defaultLanguage: string = "en",
 ): Promise<string> {
   if (typeof window === "undefined") {
     try {
+      // @ts-expect-error - next/headers is an optional peer dependency
       const { cookies } = await import("next/headers");
       const cookieStore = await cookies();
       const langCookie = cookieStore.get(cookieName);

@@ -54,7 +54,10 @@ export {
   cacheEfficiencyTest,
 } from "./utils/performanceTest";
 
-// Note: CLI tools are available separately:
+// Note: CLI tools are available in the separate 'i18nexus-tools' package:
+// npm install -g i18nexus-tools
+//
+// Available commands:
 // - npx i18n-wrapper (wrap hardcoded strings with t() functions)
 // - npx i18n-extractor (extract translation keys to JSON/CSV)
 // - npx i18n-upload (upload translations to Google Sheets)

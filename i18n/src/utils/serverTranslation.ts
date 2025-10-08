@@ -13,7 +13,7 @@ let globalFallbackLanguage = "en";
  */
 export function registerTranslations(
   translations: Record<string, Record<string, string>>,
-  fallbackLanguage: string = "en"
+  fallbackLanguage: string = "en",
 ) {
   globalTranslations = translations;
   globalFallbackLanguage = fallbackLanguage;
@@ -57,7 +57,7 @@ function getLanguageFromCookies(cookieName: string = "i18n-language"): string {
  */
 export function createServerT(
   language?: string,
-  cookieName: string = "i18n-language"
+  cookieName: string = "i18n-language",
 ) {
   // language가 제공되지 않으면 쿠키에서 자동으로 가져오기
   const currentLanguage = language || getLanguageFromCookies(cookieName);
@@ -101,7 +101,7 @@ export function createServerT(
  */
 export function getServerTranslation(
   language?: string,
-  cookieName: string = "i18n-language"
+  cookieName: string = "i18n-language",
 ) {
   const currentLanguage = language || getLanguageFromCookies(cookieName);
   const t = createServerT(currentLanguage, cookieName);
